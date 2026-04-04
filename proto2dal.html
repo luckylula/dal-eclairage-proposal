@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moteur de Contenu — DAL Éclairage Hitech</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --noir: #0a0a0a;
+    --card: #141414;
+    --or: #c9a96e;
+    --or-light: #e8c99a;
+    --or-dim: #5a4530;
+    --blanc: #f5f0e8;
+    --dim: #7a7570;
+    --border: rgba(201,169,110,0.2);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--noir);
+    color: var(--blanc);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    padding: 3rem 2rem 5rem;
+  }
+
+  header { text-align: center; margin-bottom: 3.5rem; }
+  header .label {
+    font-size: 0.65rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--or);
+    display: flex; align-items: center; justify-content: center;
+    gap: 1rem; margin-bottom: 1.2rem;
+  }
+  header .label::before, header .label::after {
+    content: ''; width: 2rem; height: 1px; background: var(--or-dim);
+  }
+  header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 300; line-height: 1.2;
+  }
+  header h1 em { font-style: italic; color: var(--or-light); }
+
+  .diagram {
+    max-width: 860px; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  .anim {
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    width: 100%; display: flex; justify-content: center;
+  }
+  .anim.visible { opacity: 1; transform: translateY(0); }
+
+  .arrow {
+    display: flex; justify-content: center;
+    height: 2.5rem; width: 100%;
+    opacity: 0; transition: opacity 0.4s ease;
+  }
+  .arrow.visible { opacity: 1; }
+
+  .connector {
+    width: 100%; max-width: 860px; height: 44px;
+    opacity: 0; transition: opacity 0.4s ease;
+  }
+  .connector.visible { opacity: 1; }
+
+  /* TRIGGER NODE */
+  .trigger-node {
+    border: 2px solid var(--or);
+    border-radius: 8px; padding: 1.4rem 2rem;
+    text-align: center; background: var(--card);
+    max-width: 520px; width: 100%;
+  }
+  .trigger-node .t-label {
+    font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--or); margin-bottom: 0.6rem;
+  }
+  .trigger-node .t-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; margin-bottom: 0.8rem;
+  }
+  .trigger-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center;
+  }
+  .trigger-tag {
+    font-size: 0.7rem; border: 1px solid var(--or-dim);
+    padding: 0.25rem 0.8rem; border-radius: 20px;
+    color: var(--blanc);
+  }
+
+  /* IA NODE */
+  .ia-node {
+    border: 2px solid var(--or-dim); border-radius: 8px;
+    padding: 1.4rem 2rem; text-align: center;
+    background: rgba(201,169,110,0.06);
+    max-width: 520px; width: 100%;
+  }
+  .ia-node .ia-label {
+    font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--or-dim); margin-bottom: 0.5rem;
+  }
+  .ia-node .ia-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; margin-bottom: 0.5rem;
+  }
+  .ia-node .ia-desc {
+    font-size: 0.8rem; color: var(--dim); line-height: 1.6;
+  }
+
+  /* VALIDATION NODE */
+  .validation-node {
+    border: 1px dashed var(--or-dim); border-radius: 8px;
+    padding: 1.2rem 2rem; text-align: center;
+    background: rgba(201,169,110,0.03);
+    max-width: 520px; width: 100%;
+  }
+  .validation-node .v-label {
+    font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--or-dim); margin-bottom: 0.5rem;
+  }
+  .validation-node .v-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; margin-bottom: 0.4rem;
+  }
+  .validation-node .v-desc {
+    font-size: 0.78rem; color: var(--dim); font-style: italic;
+  }
+
+  /* CHANNELS */
+  .channels-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem; max-width: 860px; width: 100%;
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .channels-row.visible { opacity: 1; transform: translateY(0); }
+
+  .channel-card {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.4rem 1.2rem; text-align: center; background: var(--card);
+    transition: background 0.3s ease;
+  }
+  .channel-card:hover { background: #1a1a1a; }
+  .channel-card .ch-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+  .channel-card .ch-icon--svg svg {
+    display: block;
+    width: 2.125rem;
+    height: 2.125rem;
+    margin: 0 auto;
+    color: var(--or-light);
+  }
+  .channel-card .ch-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 400; margin-bottom: 0.5rem;
+  }
+  .channel-card .ch-desc {
+    font-size: 0.75rem; color: var(--dim); line-height: 1.6;
+  }
+  .channel-card .ch-tag {
+    display: inline-block; margin-top: 0.8rem;
+    font-size: 0.6rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--or);
+    border: 1px solid var(--or-dim);
+    padding: 0.2rem 0.6rem; border-radius: 3px;
+  }
+
+  /* NOTE */
+  .note {
+    max-width: 680px; width: 100%;
+    border-left: 2px solid var(--or-dim);
+    padding: 0.8rem 1.2rem; margin-top: 2rem;
+    font-size: 0.8rem; color: var(--dim); line-height: 1.7;
+    opacity: 0; transition: opacity 0.6s ease;
+  }
+  .note.visible { opacity: 1; }
+  .note strong { color: var(--or); font-weight: 400; }
+
+  @media (max-width: 640px) {
+    .channels-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="label">Moteur de Contenu Automatisé</div>
+  <h1>Actualités, Newsletter<br>et <em>Réseaux Sociaux</em></h1>
+</header>
+
+<div class="diagram">
+
+  <!-- 1. TRIGGER -->
+  <div class="anim" id="n1">
+    <div class="trigger-node" id="triggerNode">
+      <div class="t-label">Déclencheur</div>
+      <div class="t-title">Un événement lance le processus</div>
+      <div class="trigger-tags">
+        <span class="trigger-tag">Nouveauté produit</span>
+        <span class="trigger-tag">Actualité du secteur</span>
+        <span class="trigger-tag">Mise à jour fournisseur</span>
+        <span class="trigger-tag">Photo uploadée depuis le terrain</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow" id="a1">
+    <svg width="12" height="36" viewBox="0 0 12 36">
+      <line x1="6" y1="0" x2="6" y2="28" stroke="#5a4530" stroke-width="1.5"/>
+      <polygon points="6,36 1,26 11,26" fill="#5a4530"/>
+    </svg>
+  </div>
+
+  <!-- 2. IA -->
+  <div class="anim" id="n2">
+    <div class="ia-node">
+      <div class="ia-label">Génération IA</div>
+      <div class="ia-title">Création automatique d'un brouillon</div>
+      <div class="ia-desc">Le workflow génère automatiquement un contenu adapté à partir de l'événement déclencheur — titre, texte, format.</div>
+    </div>
+  </div>
+
+  <div class="arrow" id="a2">
+    <svg width="12" height="36" viewBox="0 0 12 36">
+      <line x1="6" y1="0" x2="6" y2="28" stroke="#5a4530" stroke-width="1.5"/>
+      <polygon points="6,36 1,26 11,26" fill="#5a4530"/>
+    </svg>
+  </div>
+
+  <!-- 3. VALIDATION -->
+  <div class="anim" id="n3">
+    <div class="validation-node">
+      <div class="v-label">Validation humaine</div>
+      <div class="v-title">L'équipe DAL relit et valide</div>
+      <div class="v-desc">En quelques minutes, sans partir d'une page blanche.</div>
+    </div>
+  </div>
+
+  <!-- CONNECTOR -->
+  <svg class="connector" id="pc1" viewBox="0 0 860 44" preserveAspectRatio="none">
+    <line x1="430" y1="0" x2="143" y2="44" stroke="#5a4530" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <line x1="430" y1="0" x2="430" y2="44" stroke="#5a4530" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <line x1="430" y1="0" x2="717" y2="44" stroke="#5a4530" stroke-width="1.5" stroke-dasharray="4 3"/>
+  </svg>
+
+  <!-- 4. THREE CHANNELS -->
+  <div class="channels-row" id="n4">
+
+    <div class="channel-card">
+      <div class="ch-icon">🌐</div>
+      <div class="ch-name">Site web</div>
+      <div class="ch-desc">Article publié automatiquement dans la section Actualités du site DAL.</div>
+      <div class="ch-tag">SEO + visibilité</div>
+    </div>
+
+    <div class="channel-card">
+      <div class="ch-icon">📧</div>
+      <div class="ch-name">Newsletter</div>
+      <div class="ch-desc">Envoyée à la base de contacts DAL — clients, architectes, prescripteurs.</div>
+      <div class="ch-tag">Fidélisation</div>
+    </div>
+
+    <div class="channel-card">
+      <div class="ch-icon ch-icon--svg">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="20" cy="11" r="4" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="10" cy="29" r="4" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="30" cy="29" r="4" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M17.2 14.3 12 25M22.8 14.3 28 25" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="ch-name">Réseaux sociaux</div>
+      <div class="ch-desc">Publications adaptées au format de chaque plateforme — LinkedIn, Instagram.</div>
+      <div class="ch-tag">Notoriété</div>
+    </div>
+
+  </div>
+
+  <!-- NOTE -->
+  <div class="note" id="note">
+    <strong>Le même message, trois canaux simultanés.</strong> Le contenu est généré une seule fois et adapté automatiquement à chaque format — sans travail supplémentaire pour l'équipe DAL.
+  </div>
+
+</div>
+
+<script>
+  const steps = [
+    { id: 'n1',   delay: 300  },
+    { id: 'a1',   delay: 900  },
+    { id: 'n2',   delay: 1200 },
+    { id: 'a2',   delay: 1800 },
+    { id: 'n3',   delay: 2100 },
+    { id: 'pc1',  delay: 2700 },
+    { id: 'n4',   delay: 3000 },
+    { id: 'note', delay: 3800 },
+  ];
+
+  steps.forEach(({ id, delay }) => {
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('visible');
+    }, delay);
+  });
+
+  // Pulse on trigger node
+  const trigger = document.getElementById('triggerNode');
+  setTimeout(() => {
+    setInterval(() => {
+      trigger.style.boxShadow = '0 0 0 8px rgba(201,169,110,0.1), 0 0 0 16px rgba(201,169,110,0.04)';
+      setTimeout(() => { trigger.style.boxShadow = 'none'; }, 700);
+    }, 2500);
+  }, 800);
+</script>
+
+</body>
+</html>

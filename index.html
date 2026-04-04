@@ -16,6 +16,7 @@
     --blanc: #f5f0e8;
     --blanc-dim: #9e9890;
     --border: rgba(201,169,110,0.15);
+    --title-eyebrow: clamp(0.9rem, 1.2vw, 1.15rem);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -58,17 +59,22 @@
     backdrop-filter: blur(20px);
   }
 
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    font-weight: 300;
-    letter-spacing: 0.15em;
-    color: var(--or);
-    text-transform: uppercase;
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .nav-brand img {
+    height: 3.5rem;
+    width: auto;
+    display: block;
+    object-fit: contain;
   }
 
   .nav-prepared {
-    font-size: 0.75rem;
+    font-size: var(--title-eyebrow);
     letter-spacing: 0.1em;
     color: var(--blanc-dim);
     text-transform: uppercase;
@@ -76,11 +82,10 @@
 
   /* HERO */
   .hero {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 3rem 5rem;
+    justify-content: flex-start;
+    padding: 6.5rem 3rem 0.35rem;
     position: relative;
     overflow: hidden;
   }
@@ -104,7 +109,7 @@
   }
 
   .hero-tag {
-    font-size: 0.7rem;
+    font-size: var(--title-eyebrow);
     letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--or);
@@ -123,25 +128,38 @@
     background: var(--or);
   }
 
-  h1 {
+  .hero-intro {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: 3rem;
+    padding-right: 3rem;
+    box-sizing: border-box;
+  }
+
+  .hero-intro h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3rem, 8vw, 7rem);
+    font-size: clamp(2.75rem, 7.5vw, 6rem);
     font-weight: 300;
-    line-height: 1.0;
+    line-height: 1.1;
     letter-spacing: -0.02em;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    max-width: none;
+    width: 100%;
     opacity: 0;
     animation: fadeUp 0.8s ease forwards 0.5s;
   }
 
-  h1 em {
+  .hero-intro h1 em {
     font-style: italic;
     color: var(--or-light);
   }
 
-  .hero-sub {
-    max-width: 500px;
-    font-size: 0.95rem;
+  .hero-intro .hero-sub {
+    width: 100%;
+    max-width: none;
+    font-size: clamp(1.08rem, 1.65vw, 1.4rem);
     color: var(--blanc-dim);
     line-height: 1.8;
     opacity: 0;
@@ -149,10 +167,9 @@
   }
 
   .hero-scroll {
-    position: absolute;
-    bottom: 2.5rem;
-    right: 3rem;
-    font-size: 0.65rem;
+    align-self: flex-end;
+    margin-top: 0.5rem;
+    font-size: clamp(0.85rem, 1.05vw, 1rem);
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--blanc-dim);
@@ -167,18 +184,22 @@
   .hero-scroll::after {
     content: '';
     width: 1px;
-    height: 4rem;
+    height: 2.25rem;
     background: linear-gradient(to bottom, var(--or-dim), transparent);
   }
 
   /* SECTIONS */
   section {
-    padding: 6rem 3rem;
+    padding: 3.5rem 3rem;
     max-width: 1100px;
     margin: 0 auto;
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .hero + section {
+    padding-top: 0.35rem;
   }
 
   section.visible {
@@ -187,11 +208,11 @@
   }
 
   .section-label {
-    font-size: 0.65rem;
+    font-size: var(--title-eyebrow);
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--or);
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -206,15 +227,21 @@
 
   h2 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-size: clamp(2.35rem, 4.75vw, 4rem);
     font-weight: 300;
     line-height: 1.15;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 
   h2 em {
     font-style: italic;
     color: var(--or-light);
+  }
+
+  .h2-single-line {
+    white-space: nowrap;
+    font-size: clamp(1.45rem, 5vw, 3.85rem);
+    width: 100%;
   }
 
   /* AUDIT GRID */
@@ -224,7 +251,7 @@
     gap: 1px;
     background: var(--border);
     border: 1px solid var(--border);
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
   }
 
   .audit-item {
@@ -238,7 +265,7 @@
   }
 
   .audit-item-label {
-    font-size: 0.65rem;
+    font-size: clamp(0.85rem, 1.05vw, 1.05rem);
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--or-dim);
@@ -247,10 +274,10 @@
 
   .audit-item h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
+    font-size: clamp(1.5rem, 2.5vw, 2.05rem);
     font-weight: 400;
     margin-bottom: 0.8rem;
-    color: var(--blanc);
+    color: var(--or-light);
   }
 
   .audit-item p {
@@ -300,26 +327,825 @@
 
   .solution-content h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
+    font-size: clamp(1.5rem, 2.2vw, 1.85rem);
     font-weight: 400;
     margin-bottom: 0.5rem;
   }
 
-  .solution-content .solution-tag {
+  .solution-content p {
+    font-size: 1rem;
+    color: var(--blanc-dim);
+    line-height: 1.8;
+  }
+
+  .solution-content p + p {
+    margin-top: 1rem;
+  }
+
+  .solution-assistant-narrative {
+    margin-top: 2.25rem;
+  }
+
+  .solution-assistant-narrative p {
+    font-size: 1rem;
+    color: var(--blanc-dim);
+    line-height: 1.8;
+  }
+
+  .solution-assistant-narrative p + p {
+    margin-top: 1rem;
+  }
+
+  .solution-anc-narrative {
+    margin-top: 2.25rem;
+  }
+
+  .solution-anc-narrative p {
+    font-size: 1rem;
+    color: var(--blanc-dim);
+    line-height: 1.8;
+  }
+
+  .solution-anc-narrative p + p {
+    margin-top: 1rem;
+  }
+
+  /* Assistant flow diagram (proto v3) */
+  .aca-flow {
+    margin-top: 2.25rem;
+    padding: 2rem 1.25rem 2.5rem;
+    background: var(--noir-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    max-width: 100%;
+  }
+
+  .aca-flow-intro {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .aca-flow-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--or);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .aca-flow-eyebrow::before,
+  .aca-flow-eyebrow::after {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: var(--or-dim);
+  }
+
+  .aca-flow-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+    font-weight: 300;
+    line-height: 1.25;
+    color: var(--blanc);
+  }
+
+  .aca-flow-heading em {
+    font-style: italic;
+    color: var(--or-light);
+  }
+
+  .aca-diagram {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .aca-flow .aca-anim {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .aca-flow .aca-anim.aca-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .aca-flow .aca-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .aca-flow .aca-arrow.aca-visible {
+    opacity: 1;
+  }
+
+  .aca-flow .aca-connector {
+    width: 100%;
+    max-width: 900px;
+    height: 44px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .aca-flow .aca-connector.aca-visible {
+    opacity: 1;
+  }
+
+  .aca-flow .aca-entry-node {
+    border: 2px solid var(--or);
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--noir-card);
+    transition: box-shadow 0.6s ease;
+  }
+
+  .aca-flow .aca-entry-node .aca-entry-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .aca-flow .aca-entry-node .aca-entry-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    color: var(--or-light);
+    line-height: 1.3;
+  }
+
+  .aca-flow .aca-question-node {
+    border: 1px dashed var(--or-dim);
+    border-radius: 8px;
+    padding: 1rem 2rem;
+    text-align: center;
+    background: rgba(201, 169, 110, 0.04);
+    max-width: 360px;
+    width: 100%;
+  }
+
+  .aca-flow .aca-question-node .aca-q-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or-dim);
+    margin-bottom: 0.4rem;
+  }
+
+  .aca-flow .aca-question-node .aca-q-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 300;
+  }
+
+  .aca-flow .aca-paths-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    max-width: 900px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .aca-flow .aca-paths-row.aca-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .aca-flow .aca-path-card {
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .aca-flow .aca-path-card.a {
+    border-color: rgba(100, 160, 220, 0.4);
+    background: rgba(30, 58, 95, 0.25);
+  }
+
+  .aca-flow .aca-path-card.b {
+    border-color: rgba(100, 200, 130, 0.4);
+    background: rgba(30, 61, 42, 0.25);
+  }
+
+  .aca-flow .aca-path-card.c {
+    border-color: rgba(200, 100, 100, 0.4);
+    background: rgba(61, 30, 30, 0.25);
+  }
+
+  .aca-flow .aca-path-card .aca-path-icon {
+    font-size: 1.3rem;
+  }
+
+  .aca-flow .aca-path-card .aca-path-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .aca-flow .aca-path-card.a .aca-path-label {
+    color: #6eb5e8;
+  }
+
+  .aca-flow .aca-path-card.b .aca-path-label {
+    color: #7ed6a0;
+  }
+
+  .aca-flow .aca-path-card.c .aca-path-label {
+    color: #e8907e;
+  }
+
+  .aca-flow .aca-path-card .aca-path-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.25;
+  }
+
+  .aca-flow .aca-path-card .aca-path-desc {
+    font-size: 0.76rem;
+    color: var(--blanc-dim);
+    line-height: 1.6;
+  }
+
+  .aca-flow .aca-agent-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    max-width: 900px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .aca-flow .aca-conv-node {
+    border: 2px solid var(--or-dim);
+    border-radius: 8px;
+    padding: 1.4rem 2rem;
+    text-align: center;
+    background: rgba(201, 169, 110, 0.06);
+    max-width: 420px;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .aca-flow .aca-conv-node .aca-c-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 0.5rem;
+  }
+
+  .aca-flow .aca-conv-node .aca-c-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+  }
+
+  .aca-flow .aca-conv-node .aca-c-questions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+  }
+
+  .aca-flow .aca-conv-node .aca-c-q {
+    font-size: 0.7rem;
+    border: 1px solid var(--or-dim);
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+    color: var(--blanc-dim);
+  }
+
+  .aca-flow .aca-side-note {
+    border: 1px dashed rgba(201, 169, 110, 0.3);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    background: rgba(201, 169, 110, 0.03);
+    max-width: 240px;
+    width: 100%;
+    position: relative;
+  }
+
+  .aca-flow .aca-side-note::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.5rem;
+    height: 1px;
+    background: repeating-linear-gradient(90deg, var(--or-dim) 0, var(--or-dim) 4px, transparent 4px, transparent 8px);
+  }
+
+  .aca-flow .aca-side-note .aca-sn-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 0.5rem;
+  }
+
+  .aca-flow .aca-side-note .aca-sn-text {
+    font-size: 0.75rem;
+    color: var(--blanc-dim);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .aca-flow .aca-apercu-node {
+    border: 1px solid rgba(201, 169, 110, 0.35);
+    border-radius: 8px;
+    padding: 1.3rem 2rem;
+    text-align: center;
+    background: rgba(201, 169, 110, 0.08);
+    max-width: 480px;
+    width: 100%;
+  }
+
+  .aca-flow .aca-apercu-node .aca-ap-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 0.5rem;
+  }
+
+  .aca-flow .aca-apercu-node .aca-ap-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 0.6rem;
+  }
+
+  .aca-flow .aca-apercu-node .aca-ap-example {
+    font-size: 0.78rem;
+    color: var(--blanc-dim);
+    font-style: italic;
+    line-height: 1.6;
+    border-left: 2px solid var(--or-dim);
+    padding-left: 0.8rem;
+    text-align: left;
+    margin-top: 0.5rem;
+  }
+
+  .aca-flow .aca-capture-node {
+    border: 2px solid var(--or-dim);
+    border-radius: 8px;
+    padding: 1.4rem 2rem;
+    text-align: center;
+    background: var(--noir-card);
+    max-width: 480px;
+    width: 100%;
+  }
+
+  .aca-flow .aca-capture-node .aca-cap-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .aca-flow .aca-capture-node .aca-cap-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+  }
+
+  .aca-flow .aca-capture-node .aca-cap-quote {
+    font-size: 0.8rem;
+    color: var(--blanc-dim);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .aca-flow .aca-capture-node .aca-cap-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+  }
+
+  .aca-flow .aca-cap-field {
+    font-size: 0.7rem;
+    border: 1px solid var(--or-dim);
+    padding: 0.25rem 0.8rem;
+    border-radius: 20px;
+    color: var(--blanc);
+  }
+
+  .aca-flow .aca-cap-field.opt {
+    color: var(--blanc-dim);
+    border-color: rgba(90, 69, 48, 0.5);
+  }
+
+  .aca-flow .aca-results-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    max-width: 760px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .aca-flow .aca-results-row.aca-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .aca-flow .aca-client-result {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.4rem;
+    background: var(--noir-card);
+  }
+
+  .aca-flow .aca-client-result .aca-r-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 0.8rem;
+  }
+
+  .aca-flow .aca-client-result .aca-r-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .aca-flow .aca-r-item {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+  }
+
+  .aca-flow .aca-r-item .aca-r-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .aca-flow .aca-r-item .aca-r-text {
+    font-size: 0.76rem;
+    color: var(--blanc-dim);
+    line-height: 1.5;
+  }
+
+  .aca-flow .aca-r-item .aca-r-name {
+    font-size: 0.82rem;
+    color: var(--blanc);
+    margin-bottom: 0.2rem;
+  }
+
+  .aca-flow .aca-dal-result {
+    border: 1px solid var(--or-dim);
+    border-radius: 8px;
+    padding: 1.4rem;
+    background: rgba(201, 169, 110, 0.05);
+  }
+
+  .aca-flow .aca-dal-result .aca-r-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or-dim);
+    margin-bottom: 0.8rem;
+  }
+
+  .aca-flow .aca-dal-result .aca-r-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .aca-flow .aca-dal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.5rem;
+  }
+
+  .aca-flow .aca-dal-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+    color: var(--blanc-dim);
+    border: 1px solid rgba(90, 69, 48, 0.5);
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    margin: 0.2rem;
+  }
+
+  @media (max-width: 640px) {
+    .aca-flow .aca-paths-row {
+      grid-template-columns: 1fr !important;
+    }
+
+    .aca-flow .aca-results-row {
+      grid-template-columns: 1fr !important;
+    }
+
+    .aca-flow .aca-agent-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .aca-flow .aca-side-note {
+      max-width: 100%;
+    }
+
+    .aca-flow .aca-side-note::before {
+      display: none;
+    }
+  }
+
+  /* Actualités / Newsletter — schéma (proto2dal) */
+  .anc-flow {
+    margin-top: 2.25rem;
+    padding: 2rem 1.25rem 2.5rem;
+    background: var(--noir-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    max-width: 100%;
+  }
+
+  .anc-diagram {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .anc-flow .anc-anim {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .anc-flow .anc-anim.anc-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .anc-flow .anc-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .anc-flow .anc-arrow.anc-visible {
+    opacity: 1;
+  }
+
+  .anc-flow .anc-connector {
+    width: 100%;
+    max-width: 860px;
+    height: 44px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .anc-flow .anc-connector.anc-visible {
+    opacity: 1;
+  }
+
+  .anc-flow .anc-trigger-node {
+    border: 2px solid var(--or);
+    border-radius: 8px;
+    padding: 1.4rem 2rem;
+    text-align: center;
+    background: var(--noir-card);
+    max-width: 520px;
+    width: 100%;
+    transition: box-shadow 0.6s ease;
+  }
+
+  .anc-flow .anc-trigger-node .anc-t-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 0.6rem;
+  }
+
+  .anc-flow .anc-trigger-node .anc-t-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+  }
+
+  .anc-flow .anc-trigger-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+  }
+
+  .anc-flow .anc-trigger-tag {
+    font-size: 0.7rem;
+    border: 1px solid var(--or-dim);
+    padding: 0.25rem 0.8rem;
+    border-radius: 20px;
+    color: var(--blanc);
+  }
+
+  .anc-flow .anc-ia-node {
+    border: 2px solid var(--or-dim);
+    border-radius: 8px;
+    padding: 1.4rem 2rem;
+    text-align: center;
+    background: rgba(201, 169, 110, 0.06);
+    max-width: 520px;
+    width: 100%;
+  }
+
+  .anc-flow .anc-ia-node .anc-ia-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .anc-flow .anc-ia-node .anc-ia-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  .anc-flow .anc-ia-node .anc-ia-desc {
+    font-size: 0.8rem;
+    color: var(--blanc-dim);
+    line-height: 1.6;
+  }
+
+  .anc-flow .anc-validation-node {
+    border: 1px dashed var(--or-dim);
+    border-radius: 8px;
+    padding: 1.2rem 2rem;
+    text-align: center;
+    background: rgba(201, 169, 110, 0.03);
+    max-width: 520px;
+    width: 100%;
+  }
+
+  .anc-flow .anc-validation-node .anc-v-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .anc-flow .anc-validation-node .anc-v-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+
+  .anc-flow .anc-validation-node .anc-v-desc {
+    font-size: 0.78rem;
+    color: var(--blanc-dim);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .anc-flow .anc-channels-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    max-width: 860px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .anc-flow .anc-channels-row.anc-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .anc-flow .anc-channel-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.4rem 1.2rem;
+    text-align: center;
+    background: var(--noir-card);
+    transition: background 0.3s ease;
+  }
+
+  .anc-flow .anc-channel-card:hover {
+    background: #1a1a1a;
+  }
+
+  .anc-flow .anc-channel-card .anc-ch-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .anc-flow .anc-channel-card .anc-ch-icon--svg svg {
+    display: block;
+    width: 2.125rem;
+    height: 2.125rem;
+    margin: 0 auto;
+    color: var(--or-light);
+  }
+
+  .anc-flow .anc-channel-card .anc-ch-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  .anc-flow .anc-channel-card .anc-ch-desc {
+    font-size: 0.75rem;
+    color: var(--blanc-dim);
+    line-height: 1.6;
+  }
+
+  .anc-flow .anc-channel-card .anc-ch-tag {
     display: inline-block;
+    margin-top: 0.8rem;
     font-size: 0.6rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--or);
     border: 1px solid var(--or-dim);
     padding: 0.2rem 0.6rem;
-    margin-bottom: 1rem;
+    border-radius: 3px;
   }
 
-  .solution-content p {
-    font-size: 0.875rem;
+  .anc-flow .anc-note {
+    max-width: 680px;
+    width: 100%;
+    border-left: 2px solid var(--or-dim);
+    padding: 0.8rem 1.2rem;
+    margin-top: 2rem;
+    font-size: 0.8rem;
     color: var(--blanc-dim);
-    line-height: 1.8;
+    line-height: 1.7;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .anc-flow .anc-note.anc-visible {
+    opacity: 1;
+  }
+
+  .anc-flow .anc-note strong {
+    color: var(--or);
+    font-weight: 400;
+  }
+
+  @media (max-width: 640px) {
+    .anc-flow .anc-channels-row {
+      grid-template-columns: 1fr !important;
+    }
   }
 
   /* STRUCTURE WEB */
@@ -358,7 +1184,7 @@
 
   .structure-page .page-num {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
+    font-size: clamp(2.1rem, 2.8vw, 2.4rem);
     color: var(--or-dim);
     line-height: 1;
     margin-bottom: 0.8rem;
@@ -366,16 +1192,183 @@
 
   .structure-page .page-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.95rem;
+    font-size: clamp(1.05rem, 1.25vw, 1.25rem);
     font-weight: 400;
     color: var(--blanc);
-    margin-bottom: 0.8rem;
+    margin-bottom: 0;
   }
 
-  .structure-page .page-desc {
-    font-size: 0.7rem;
+  .structure-page--clickable {
+    appearance: none;
+    font: inherit;
+    font-family: inherit;
+    color: inherit;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .structure-page--clickable:focus-visible {
+    outline: 2px solid var(--or);
+    outline-offset: 2px;
+  }
+
+  .structure-page--clickable.is-open {
+    background: #1f1c15;
+    box-shadow: inset 0 0 0 1px var(--or-dim);
+  }
+
+  .structure-grid-hint {
+    font-size: clamp(0.88rem, 1.05vw, 1rem);
     color: var(--blanc-dim);
-    line-height: 1.6;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    margin-bottom: 1.35rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    max-width: 40rem;
+  }
+
+  .structure-grid-hint::before {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background: var(--or);
+    margin-top: 0.65em;
+    flex-shrink: 0;
+    opacity: 0.85;
+  }
+
+  .structure-page--clickable .page-name::after {
+    content: '↓';
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--or-dim);
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .structure-page--clickable:hover .page-num {
+    color: var(--or);
+  }
+
+  .structure-page--clickable:hover .page-name::after {
+    color: var(--or);
+  }
+
+  .structure-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .structure-detail {
+    background: var(--noir-card);
+    border: 1px solid var(--border);
+    border-top: none;
+    padding: 2.5rem 3rem;
+    text-align: left;
+  }
+
+  .structure-detail[hidden] {
+    display: none;
+  }
+
+  .structure-detail-intro {
+    font-size: clamp(1rem, 1.15vw, 1.1rem);
+    color: var(--blanc-dim);
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+    max-width: 52rem;
+  }
+
+  .structure-detail-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+    font-weight: 400;
+    color: var(--or-light);
+    margin-bottom: 1.25rem;
+  }
+
+  .structure-detail-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 52rem;
+  }
+
+  .structure-detail-list li {
+    font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+    color: var(--blanc-dim);
+    line-height: 1.75;
+    padding-left: 0;
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+
+  .structure-detail-list li strong {
+    color: var(--blanc);
+    font-weight: 500;
+  }
+
+  .structure-detail-list > li.structure-detail-li-nowrap {
+    display: block;
+    flex-wrap: unset;
+    gap: 0;
+  }
+
+  .structure-detail-nowrap-inner {
+    display: inline-block;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.3rem;
+    vertical-align: top;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .structure-detail-nowrap-inner::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .structure-detail-nowrap-inner::-webkit-scrollbar-thumb {
+    background: var(--or-dim);
+    border-radius: 2px;
+  }
+
+  .structure-detail-goal {
+    margin-top: 1.75rem;
+    margin-bottom: 0;
+    font-style: italic;
+    color: var(--or-light);
+  }
+
+  .structure-detail-follow {
+    margin-top: 1.75rem;
+    margin-bottom: 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+    color: var(--blanc-dim);
+    line-height: 1.8;
+  }
+
+  .structure-detail-follow--gold {
+    color: var(--or-light);
   }
 
   /* BENEFITS */
@@ -388,7 +1381,7 @@
 
   .benefit-block h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
+    font-size: clamp(1.85rem, 2.8vw, 2.15rem);
     font-weight: 300;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
@@ -422,7 +1415,7 @@
     border: 1px solid var(--border);
     padding: 4rem;
     text-align: center;
-    margin: 2rem 0 4rem;
+    margin: 1.5rem 0 2.5rem;
     position: relative;
     background: linear-gradient(135deg, rgba(201,169,110,0.03), transparent);
   }
@@ -443,7 +1436,7 @@
 
   .phrase-block p {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-size: clamp(1.55rem, 3.25vw, 2.45rem);
     font-style: italic;
     font-weight: 300;
     color: var(--or-light);
@@ -453,7 +1446,7 @@
   .phrase-block span {
     display: block;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem;
+    font-size: clamp(1.1rem, 1.5vw, 1.45rem);
     color: var(--blanc-dim);
     font-style: normal;
     margin-top: 1rem;
@@ -462,7 +1455,7 @@
 
   /* FOOTER CTA */
   .footer-cta {
-    padding: 6rem 3rem;
+    padding: 3.5rem 3rem;
     text-align: center;
     border-top: 1px solid var(--border);
     background: var(--noir-soft);
@@ -477,7 +1470,7 @@
   }
 
   .footer-cta .prepared-by {
-    font-size: 0.65rem;
+    font-size: var(--title-eyebrow);
     letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--blanc-dim);
@@ -486,7 +1479,7 @@
 
   .footer-cta h2 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 5vw, 4rem);
+    font-size: clamp(2.35rem, 5.5vw, 4.35rem);
     font-weight: 300;
     margin-bottom: 2rem;
     line-height: 1.1;
@@ -522,7 +1515,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    font-size: 0.6rem;
+    font-size: clamp(0.82rem, 0.95vw, 1rem);
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--or-dim);
@@ -534,7 +1527,7 @@
 
   .pending::before {
     content: '○';
-    font-size: 0.5rem;
+    font-size: 0.9em;
   }
 
   /* ANIMATIONS */
@@ -551,13 +1544,24 @@
   /* RESPONSIVE */
   @media (max-width: 768px) {
     nav { padding: 1.2rem 1.5rem; }
-    .hero { padding: 0 1.5rem 4rem; }
-    section { padding: 4rem 1.5rem; }
+    .nav-brand img { height: 2.85rem; }
+    .hero { padding: 5.75rem 1.5rem 0.3rem; }
+    .hero-intro { padding-left: 1.5rem; padding-right: 1.5rem; }
+    section { padding: 2.5rem 1.5rem; }
+    .hero + section { padding-top: 0.3rem; }
     .audit-grid { grid-template-columns: 1fr; }
     .structure-grid { grid-template-columns: repeat(2, 1fr); }
+    .structure-detail { padding: 1.75rem 1.5rem; }
     .benefits-grid { grid-template-columns: 1fr; }
     .phrase-block { padding: 2.5rem; }
-    .footer-cta { padding: 4rem 1.5rem; }
+    .footer-cta { padding: 2.5rem 1.5rem; }
+  }
+
+  @media (max-width: 380px) {
+    .h2-single-line {
+      white-space: normal;
+      font-size: clamp(1.45rem, 6.5vw, 3.85rem);
+    }
   }
 </style>
 </head>
@@ -565,7 +1569,9 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">DAL Éclairage Hitech</div>
+  <a href="#" class="nav-brand" aria-label="DAL Éclairage Hitech — accueil">
+    <img src="dal_logo.png" width="312" height="302" alt="DAL Éclairage Hitech">
+  </a>
   <div class="nav-prepared">Proposition · FacilIA</div>
 </nav>
 
@@ -576,17 +1582,12 @@
 
   <div class="hero-tag">Proposition de collaboration</div>
 
-  <h1>
-    Lumière sur<br>
-    votre <em>présence</em><br>
-    digitale
-  </h1>
-
-  <p class="hero-sub">
-    Une analyse de votre site actuel, des solutions IA concrètes, 
-    et une vision claire pour faire de DAL Éclairage Hitech 
-    la référence en éclairage sur le marché genevois.
-  </p>
+  <div class="hero-intro">
+    <h1>Lumière sur votre <em>présence digitale</em></h1>
+    <p class="hero-sub">
+      Une analyse de votre site actuel, des solutions IA concrètes, et une vision claire pour faire de DAL Éclairage Hitech la référence en éclairage sur le marché genevois.
+    </p>
+  </div>
 
   <div class="hero-scroll">Défiler</div>
 </div>
@@ -596,17 +1597,17 @@
 <section id="audit">
   <div class="section-label">01 — Audit rapide</div>
 
-  <h2>Ce que nous<br>avons <em>observé</em></h2>
+  <h2 class="h2-single-line">Ce que nous avons <em>observé</em></h2>
 
   <div class="audit-grid">
     <div class="audit-item">
       <div class="audit-item-label">Message & cible</div>
-      <h3>Un discours trop générique</h3>
+      <h3>Un message sans identité</h3>
       <p>Le site actuel ne précise pas clairement à qui s'adresse DAL. En quelques secondes, un visiteur ne sait pas si cette entreprise est faite pour lui — architecte, électricien ou particulier.</p>
     </div>
     <div class="audit-item">
       <div class="audit-item-label">Visuels & photos</div>
-      <h3>Un site trop statique</h3>
+      <h3>Un site statique</h3>
       <p>L'éclairage est un secteur visuel par nature. Sans galerie de réalisations ni photos d'ambiance, il est impossible de démontrer la valeur réelle de DAL.</p>
     </div>
     <div class="audit-item">
@@ -633,43 +1634,118 @@
 <section id="structure">
   <div class="section-label">02 — Nouveau site</div>
 
-  <h2>Une architecture<br>pensée pour <em>convertir</em></h2>
+  <h2 id="structure-plan-heading" class="h2-single-line">Une architecture pensée pour <em>convertir</em></h2>
 
-  <div class="structure-grid">
-    <div class="structure-page">
-      <div class="page-num">1</div>
-      <div class="page-name">Accueil</div>
-      <div class="page-desc">Deux portes d'entrée claires : projet ou produit</div>
+  <div class="structure-wrap" role="region" aria-labelledby="structure-plan-heading" aria-describedby="structure-grid-hint">
+    <p id="structure-grid-hint" class="structure-grid-hint">Cliquez sur une case du plan (numéro + titre) pour afficher le détail de la page juste en dessous.</p>
+    <div class="structure-grid">
+      <button type="button" class="structure-page structure-page--clickable" id="structure-trigger-1" aria-expanded="false" aria-controls="structure-detail-1" title="Afficher le détail sous le plan">
+        <span class="page-num">1</span>
+        <span class="page-name">Accueil</span>
+      </button>
+      <button type="button" class="structure-page structure-page--clickable" id="structure-trigger-2" aria-expanded="false" aria-controls="structure-detail-2" title="Afficher le détail sous le plan">
+        <span class="page-num">2</span>
+        <span class="page-name">La Société</span>
+      </button>
+      <button type="button" class="structure-page structure-page--clickable" id="structure-trigger-3" aria-expanded="false" aria-controls="structure-detail-3" title="Afficher le détail sous le plan">
+        <span class="page-num">3</span>
+        <span class="page-name">Nos Marques</span>
+      </button>
+      <button type="button" class="structure-page structure-page--clickable" id="structure-trigger-4" aria-expanded="false" aria-controls="structure-detail-4" title="Afficher le détail sous le plan">
+        <span class="page-num">4</span>
+        <span class="page-name">Réalisations</span>
+      </button>
+      <button type="button" class="structure-page structure-page--clickable featured" id="structure-trigger-5" aria-expanded="false" aria-controls="structure-detail-5" title="Afficher le détail sous le plan">
+        <span class="page-num">5</span>
+        <span class="page-name">Votre Projet</span>
+      </button>
+      <button type="button" class="structure-page structure-page--clickable" id="structure-trigger-6" aria-expanded="false" aria-controls="structure-detail-6" title="Afficher le détail sous le plan">
+        <span class="page-num">6</span>
+        <span class="page-name">Actualités</span>
+      </button>
+      <button type="button" class="structure-page structure-page--clickable" id="structure-trigger-7" aria-expanded="false" aria-controls="structure-detail-7" title="Afficher le détail sous le plan">
+        <span class="page-num">7</span>
+        <span class="page-name">Contact</span>
+      </button>
     </div>
-    <div class="structure-page">
-      <div class="page-num">2</div>
-      <div class="page-name">La Société</div>
-      <div class="page-desc">Photos des locaux, équipe, histoire</div>
+
+    <div class="structure-detail" id="structure-detail-1" hidden>
+      <p class="structure-detail-intro">La page d'accueil est la première impression de DAL. En quelques secondes, le visiteur doit comprendre ce que fait l'entreprise et savoir s'il est au bon endroit.</p>
+      <p class="structure-detail-heading">Elle doit contenir :</p>
+      <ul class="structure-detail-list">
+        <li><strong>Qui vous êtes</strong> — une phrase courte sur votre activité et votre expertise</li>
+        <li><strong>Ce que vous faites</strong> — en quoi DAL se distingue d'un simple distributeur</li>
+        <li><strong>À qui vous vous adressez</strong> — architectes, décorateurs, professionnels, particuliers exigeants</li>
+        <li><strong>Un aperçu de ce qu'on trouve sur le site</strong> — marques, réalisations, espace projet</li>
+        <li><strong>Un appel à l'action clair</strong> — inviter le visiteur à aller plus loin.</li>
+      </ul>
     </div>
-    <div class="structure-page">
-      <div class="page-num">3</div>
-      <div class="page-name">Nos Marques</div>
-      <div class="page-desc">Partenaires valorisés, pas des PDFs</div>
+
+    <div class="structure-detail" id="structure-detail-2" hidden>
+      <p class="structure-detail-intro">Cette page humanise l'entreprise. Le visiteur doit repartir avec le sentiment de savoir à qui il a affaire et pouvoir faire confiance.</p>
+      <p class="structure-detail-heading">Elle doit contenir :</p>
+      <ul class="structure-detail-list">
+        <li><strong>L'histoire de DAL</strong> — depuis quand, comment l'entreprise est née, ce qui la motive</li>
+        <li><strong>L'équipe</strong> — les visages, les noms, les rôles. Qui sont les personnes derrière DAL ?</li>
+        <li class="structure-detail-li-nowrap"><span class="structure-detail-nowrap-inner"><strong>Les locaux</strong> — photos du bureau, de l'atelier, de l'espace d'exposition. Un actif réel et différenciant</span></li>
+        <li><strong>Les valeurs</strong> — ce qui distingue DAL d'un simple distributeur : le conseil, la proximité, l'accompagnement</li>
+      </ul>
     </div>
-    <div class="structure-page">
-      <div class="page-num">4</div>
-      <div class="page-name">Réalisations</div>
-      <div class="page-desc">Galerie filtrée, projets réels</div>
+
+    <div class="structure-detail" id="structure-detail-3" hidden>
+      <p class="structure-detail-intro">Cette page valorise les marques que DAL a choisies de distribuer. Chaque marque doit être présentée comme un choix éditorial fort — pas une simple liste de PDFs.</p>
+      <p class="structure-detail-heading">Elle doit contenir :</p>
+      <ul class="structure-detail-list">
+        <li><strong>Une image forte pour chaque marque</strong> — une photo d'ambiance représentative</li>
+        <li><strong>Une courte description</strong> — qui est cette marque, pourquoi DAL la distribue, ce qui la rend unique</li>
+        <li><strong>Un lien</strong> vers le site du fabricant ou le catalogue en ligne</li>
+      </ul>
+      <p class="structure-detail-intro structure-detail-goal">L'objectif : que le visiteur comprenne que DAL sélectionne ses partenaires avec exigence.</p>
     </div>
-    <div class="structure-page featured">
-      <div class="page-num">5</div>
-      <div class="page-name">Votre Projet</div>
-      <div class="page-desc">Accompagnement de l'étude à la réalisation</div>
+
+    <div class="structure-detail" id="structure-detail-4" hidden>
+      <p class="structure-detail-intro">Cette page est la vitrine concrète du savoir-faire de DAL. Elle montre des projets réels réalisés avec les produits distribués.</p>
+      <p class="structure-detail-heading">Elle doit contenir :</p>
+      <ul class="structure-detail-list">
+        <li><strong>Des photos professionnelles de projets réalisés</strong> — qualité irréprochable, sélectionnées par DAL</li>
+        <li><strong>Des filtres</strong> pour naviguer par type d'éclairage (technique, décoratif, extérieur…) ou par contexte (bureau, hôtel, résidentiel, commerce…)</li>
+        <li><strong>Pour chaque projet</strong> : une courte description, le type d'espace, et les marques utilisées</li>
+      </ul>
+      <p class="structure-detail-intro structure-detail-goal">L'objectif : qu'un architecte ou un client professionnel puisse se projeter et dire « c'est exactement ce que je cherche ».</p>
     </div>
-    <div class="structure-page">
-      <div class="page-num">6</div>
-      <div class="page-name">Actualités</div>
-      <div class="page-desc">Blog dynamique, SEO, newsletter</div>
+
+    <div class="structure-detail" id="structure-detail-5" hidden>
+      <p class="structure-detail-intro">Cette page est le cœur stratégique du site. Elle s'adresse à toute personne — architecte, décorateur ou particulier — qui a un projet d'éclairage en tête.</p>
+      <p class="structure-detail-heading">Elle doit contenir :</p>
+      <ul class="structure-detail-list">
+        <li><strong>Le message clé de DAL</strong> : « Expertise de lumière au service des professionnels » — suivi d'une phrase courte expliquant l'accompagnement proposé</li>
+        <li><strong>Ce que DAL offre concrètement</strong> : écoute, étude technique, sélection des marques, suivi jusqu'à la réalisation</li>
+        <li><strong>Un formulaire de brief</strong> : pour que le visiteur décrive son projet (type d'espace, surface, usage, budget indicatif)</li>
+        <li><strong>Des réalisations inspirantes</strong> : un aperçu de projets similaires pour aider le visiteur à se projeter</li>
+      </ul>
+      <p class="structure-detail-follow structure-detail-follow--gold">Dans un premier temps, un formulaire statique. À terme, cette page pourrait intégrer un assistant interactif permettant au visiteur d'échanger en temps réel avec un chatbot intelligent capable de qualifier le projet directement.</p>
     </div>
-    <div class="structure-page">
-      <div class="page-num">7</div>
-      <div class="page-name">Contact</div>
-      <div class="page-desc">Simple, direct, efficace</div>
+
+    <div class="structure-detail" id="structure-detail-6" hidden>
+      <p class="structure-detail-intro">Cette page maintient le site vivant. Elle montre que DAL est une entreprise active, informée et présente dans son secteur.</p>
+      <p class="structure-detail-heading">Elle doit contenir :</p>
+      <ul class="structure-detail-list">
+        <li><strong>Des nouveautés produits</strong> — nouvelles marques, nouvelles gammes, arrivées en catalogue</li>
+        <li><strong>Des tendances</strong> — éclairage et santé, efficacité énergétique, design d'intérieur…</li>
+        <li><strong>Des actualités de l'entreprise</strong> — participations à des salons, nouveaux projets, partenariats</li>
+      </ul>
+      <p class="structure-detail-follow structure-detail-follow--gold">Cette section pourra être alimentée automatiquement — articles, nouveautés, newsletters envoyées aux clients — le tout géré par des workflows d'automatisation, sans effort manuel pour l'équipe.</p>
+    </div>
+
+    <div class="structure-detail" id="structure-detail-7" hidden>
+      <p class="structure-detail-intro">Cette page donne accès aux informations pratiques pour joindre DAL.</p>
+      <p class="structure-detail-heading">Elle doit contenir :</p>
+      <ul class="structure-detail-list">
+        <li><strong>Les coordonnées complètes</strong> : adresse, téléphone, email</li>
+        <li><strong>Les horaires d'ouverture</strong></li>
+        <li><strong>Un formulaire de contact simple</strong> : nom, email, message</li>
+        <li><strong>Une carte</strong> pour localiser la boutique</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -679,53 +1755,277 @@
 <section id="solutions">
   <div class="section-label">03 — Solutions IA</div>
 
-  <h2>Des fonctionnalités<br><em>intelligentes</em><br>à votre service</h2>
+  <h2 class="h2-single-line">Des fonctionnalités <em>intelligentes</em> à votre service</h2>
 
   <div class="solutions-list">
 
     <div class="solution-item">
       <div class="solution-number">01</div>
       <div class="solution-content">
-        <span class="solution-tag">Priorité haute</span>
-        <h3>Assistant de sélection intelligent</h3>
-        <p>Un configurateur intégré à la page d'accueil qui guide le visiteur en 3-4 questions vers les produits et services adaptés à son projet — et génère automatiquement un lead qualifié pour l'équipe.</p>
+        <h3>L'Assistant de Conception Architecturale Virtuel</h3>
+
+        <div class="aca-flow" aria-label="Schéma du parcours Assistant de Projet">
+          <div class="aca-flow-intro">
+            <div class="aca-flow-eyebrow">Assistant de Conception Architecturale Virtuel</div>
+            <p class="aca-flow-heading">Comment fonctionne l'<em>Assistant de Projet</em> ?</p>
+          </div>
+          <div class="aca-diagram">
+            <div class="aca-anim" id="aca-n1">
+              <div class="aca-entry-node" id="aca-entryNode">
+                <div class="aca-entry-icon" aria-hidden="true">👤</div>
+                <div class="aca-entry-title">Visiteur<br>Page Votre Projet</div>
+              </div>
+            </div>
+            <div class="aca-arrow" id="aca-a1" aria-hidden="true">
+              <svg width="12" height="36" viewBox="0 0 12 36">
+                <line x1="6" y1="0" x2="6" y2="28" stroke="#5a4530" stroke-width="1.5"/>
+                <polygon points="6,36 1,26 11,26" fill="#5a4530"/>
+              </svg>
+            </div>
+            <div class="aca-anim" id="aca-n2">
+              <div class="aca-question-node">
+                <div class="aca-q-label">Point de départ</div>
+                <div class="aca-q-text">Comment souhaitez-vous décrire votre projet ?</div>
+              </div>
+            </div>
+            <svg class="aca-connector" id="aca-pc1" viewBox="0 0 900 44" preserveAspectRatio="none" aria-hidden="true">
+              <line x1="450" y1="0" x2="150" y2="44" stroke="#5a4530" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <line x1="450" y1="0" x2="450" y2="44" stroke="#5a4530" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <line x1="450" y1="0" x2="750" y2="44" stroke="#5a4530" stroke-width="1.5" stroke-dasharray="4 3"/>
+            </svg>
+            <div class="aca-paths-row" id="aca-n3">
+              <div class="aca-path-card a">
+                <div class="aca-path-icon" aria-hidden="true">📸</div>
+                <div class="aca-path-label">Parcours A</div>
+                <div class="aca-path-title">"J'ai un espace à éclairer"</div>
+                <div class="aca-path-desc">Upload d'une photo du chantier ou de la pièce. L'IA analyse volumes, matériaux et lumière naturelle.</div>
+              </div>
+              <div class="aca-path-card b">
+                <div class="aca-path-icon" aria-hidden="true">🖼️</div>
+                <div class="aca-path-label">Parcours B</div>
+                <div class="aca-path-title">"J'ai une image de référence"</div>
+                <div class="aca-path-desc">Upload d'une photo coup de cœur. L'IA identifie le style lumineux et fait le matching avec les produits DAL.</div>
+              </div>
+              <div class="aca-path-card c">
+                <div class="aca-path-icon" aria-hidden="true">✏️</div>
+                <div class="aca-path-label">Parcours C</div>
+                <div class="aca-path-title">"Je décris mon projet"</div>
+                <div class="aca-path-desc">Sans photo. Le visiteur décrit librement son espace ou répond à des questions guidées.</div>
+              </div>
+            </div>
+            <svg class="aca-connector" id="aca-pc2" viewBox="0 0 900 44" preserveAspectRatio="none" aria-hidden="true">
+              <line x1="150" y1="0" x2="450" y2="44" stroke="#5a4530" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <line x1="450" y1="0" x2="450" y2="44" stroke="#5a4530" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <line x1="750" y1="0" x2="450" y2="44" stroke="#5a4530" stroke-width="1.5" stroke-dasharray="4 3"/>
+            </svg>
+            <div class="aca-anim" id="aca-n4">
+              <div class="aca-agent-wrapper">
+                <div class="aca-conv-node">
+                  <div class="aca-c-label">Agent conversationnel</div>
+                  <div class="aca-c-title">Qualification du projet</div>
+                  <div class="aca-c-questions">
+                    <span class="aca-c-q">Type d'espace</span>
+                    <span class="aca-c-q">Surface m²</span>
+                    <span class="aca-c-q">Ambiance souhaitée</span>
+                    <span class="aca-c-q">Budget indicatif</span>
+                  </div>
+                </div>
+                <div class="aca-side-note">
+                  <div class="aca-sn-label">💡 En parallèle — valeur immédiate</div>
+                  <div class="aca-sn-text">Durant la conversation, l'assistant partage des conseils préliminaires en temps réel :<br><br>« Pour un restaurant de 80m², une lumière indirecte à 2700K serait idéale sur les tables… »</div>
+                </div>
+              </div>
+            </div>
+            <div class="aca-arrow" id="aca-a2" aria-hidden="true">
+              <svg width="12" height="36" viewBox="0 0 12 36">
+                <line x1="6" y1="0" x2="6" y2="28" stroke="#5a4530" stroke-width="1.5"/>
+                <polygon points="6,36 1,26 11,26" fill="#5a4530"/>
+              </svg>
+            </div>
+            <div class="aca-anim" id="aca-n5">
+              <div class="aca-apercu-node">
+                <div class="aca-ap-label">✨ Aperçu gratuit</div>
+                <div class="aca-ap-title">Première orientation présentée en temps réel</div>
+                <div class="aca-ap-example">« Basé sur votre espace, je vous recommande un éclairage indirect à 2700K sur les tables et un bañado de pared dans la zone en pierre. Voici 3 gammes DAL qui correspondraient parfaitement. »</div>
+              </div>
+            </div>
+            <div class="aca-arrow" id="aca-a3" aria-hidden="true">
+              <svg width="12" height="36" viewBox="0 0 12 36">
+                <line x1="6" y1="0" x2="6" y2="28" stroke="#5a4530" stroke-width="1.5"/>
+                <polygon points="6,36 1,26 11,26" fill="#5a4530"/>
+              </svg>
+            </div>
+            <div class="aca-anim" id="aca-n6">
+              <div class="aca-capture-node">
+                <div class="aca-cap-label">Capture des coordonnées</div>
+                <div class="aca-cap-title">Pour recevoir votre Rapport complet</div>
+                <div class="aca-cap-quote">« J'ai généré votre Rapport de Concept Lumineux personnalisé. À quelle adresse email vous l'envoie-t-on ? »</div>
+                <div class="aca-cap-fields">
+                  <span class="aca-cap-field">Prénom / Nom</span>
+                  <span class="aca-cap-field">Email</span>
+                  <span class="aca-cap-field opt">Téléphone (optionnel)</span>
+                  <span class="aca-cap-field opt">☑ Être recontacté par DAL</span>
+                </div>
+              </div>
+            </div>
+            <div class="aca-arrow" id="aca-a4" aria-hidden="true">
+              <svg width="12" height="36" viewBox="0 0 12 36">
+                <line x1="6" y1="0" x2="6" y2="28" stroke="#5a4530" stroke-width="1.5"/>
+                <polygon points="6,36 1,26 11,26" fill="#5a4530"/>
+              </svg>
+            </div>
+            <div class="aca-results-row" id="aca-n7">
+              <div class="aca-client-result">
+                <div class="aca-r-label">Ce que reçoit le client</div>
+                <div class="aca-r-title">Son rapport personnalisé par email</div>
+                <div class="aca-r-item">
+                  <div class="aca-r-icon" aria-hidden="true">📄</div>
+                  <div>
+                    <div class="aca-r-name">Rapport de Concept Lumineux</div>
+                    <div class="aca-r-text">Analyse de l'espace, recommandations techniques (lux, température de couleur), premières orientations.</div>
+                  </div>
+                </div>
+                <div class="aca-r-item">
+                  <div class="aca-r-icon" aria-hidden="true">🛍️</div>
+                  <div>
+                    <div class="aca-r-name">Sélection personnalisée</div>
+                    <div class="aca-r-text">Les gammes DAL adaptées à son style et son budget — sans chercher dans tout le catalogue.</div>
+                  </div>
+                </div>
+                <div class="aca-r-item">
+                  <div class="aca-r-icon" aria-hidden="true">🎯</div>
+                  <div>
+                    <div class="aca-r-name">Diagnostic Expert Gratuit</div>
+                    <div class="aca-r-text">La sensation d'avoir déjà commencé son projet avec une agence de design.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="aca-dal-result">
+                <div class="aca-r-label">Ce que reçoit DAL</div>
+                <div class="aca-r-title">Un lead hautement qualifié</div>
+                <div class="aca-r-item">
+                  <div class="aca-r-icon" aria-hidden="true">📨</div>
+                  <div>
+                    <div class="aca-r-name">Email automatique structuré</div>
+                    <div class="aca-r-text">Brief complet transmis à l'équipe, prêt à traiter sans aller-retour préalable.</div>
+                  </div>
+                </div>
+                <div class="aca-dal-tags">
+                  <span class="aca-dal-tag">📸 Photos jointes</span>
+                  <span class="aca-dal-tag">📐 Surface &amp; usage</span>
+                  <span class="aca-dal-tag">🎨 Style &amp; ambiance</span>
+                  <span class="aca-dal-tag">💶 Budget indicatif</span>
+                  <span class="aca-dal-tag">📧 Contact client</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="solution-assistant-narrative">
+          <p>Intégré à la page Votre Projet, cet outil transforme le site de DAL d'un catalogue passif en un véritable conseiller en ligne. Il guide le visiteur depuis son inspiration initiale jusqu'à la transmission d'une demande qualifiée à l'équipe DAL.</p>
+          <p>Il fonctionne selon trois modes d'entrée, selon la maturité du projet du visiteur :</p>
+          <p><strong>« J'ai un espace à éclairer »</strong> — Le visiteur uploade une photo de son espace (chantier, pièce, local). L'assistant analyse l'architecture et pose des questions ciblées (surface, usage, ambiance souhaitée, budget). Il propose une première orientation et suggère les gammes DAL les plus adaptées.</p>
+          <p><strong>« J'ai une image de référence »</strong> — Le visiteur uploade une photo coup de cœur (Pinterest, magazine, hôtel…). L'assistant décompose les effets lumineux (lumière directe/indirecte, température de couleur, types de luminaires) et explique comment obtenir ce résultat avec les produits DAL.</p>
+          <p><strong>« Je décris mon projet »</strong> — Sans photo, le visiteur décrit librement son espace ou répond à quelques questions guidées.</p>
+          <p>Durant la conversation, l'assistant partage des conseils préliminaires en temps réel : « Pour un restaurant de 80m², une lumière indirecte à 2700K serait idéale sur les tables… » Le client est déjà convaincu avant même de donner son email.</p>
+          <p>À la fin de l'échange, l'assistant présente un aperçu gratuit : une première orientation en temps réel avec le type d'éclairage recommandé, la température de couleur et les gammes DAL adaptées. « Basé sur votre espace, je vous recommande un éclairage indirect à 2700K et un bañado de pared dans la zone en pierre. Voici 3 gammes DAL qui correspondraient parfaitement. »</p>
+          <p>L'assistant invite ensuite le visiteur à recevoir son Rapport de Concept Lumineux complet : « J'ai généré votre rapport personnalisé. À quelle adresse email vous l'envoie-t-on ? » Le visiteur laisse ses coordonnées parce qu'il a déjà reçu de la valeur.</p>
+          <p><strong>Ce que reçoit le client :</strong> un Rapport de Concept Lumineux avec l'analyse de son espace, les recommandations techniques (lux, température de couleur) et les premières orientations ; une sélection personnalisée des gammes DAL adaptées à son style et son budget, sans avoir à chercher dans tout le catalogue ; et la sensation d'avoir déjà commencé son projet avec une agence de design, créant un lien de confiance immédiat avec DAL avant même le premier appel.</p>
+          <p><strong>Ce que reçoit DAL :</strong> un email automatique structuré avec le brief complet, les photos jointes si applicable, les coordonnées du client et le budget indicatif — une demande hautement qualifiée, prête pour une proposition commerciale précise.</p>
+        </div>
       </div>
     </div>
 
     <div class="solution-item">
       <div class="solution-number">02</div>
       <div class="solution-content">
-        <span class="solution-tag">Priorité haute</span>
-        <h3>Galerie de réalisations</h3>
-        <p>Une vitrine de projets réalisés avec photos professionnelles, filtrables par type d'éclairage et contexte d'usage. La preuve sociale la plus puissante pour convaincre un architecte ou un prescripteur.</p>
-      </div>
-    </div>
+        <h3>Moteur de Contenu Automatisé — Actualités, Newsletter et Réseaux Sociaux</h3>
 
-    <div class="solution-item">
-      <div class="solution-number">03</div>
-      <div class="solution-content">
-        <span class="solution-tag">En définition</span>
-        <h3>IA intégrée à l'espace Projets</h3>
-        <p>Deux pistes à explorer : un guide de projet intelligent qui génère un brief technique automatique, ou une fonctionnalité de visualisation où le client uploade une photo de son espace et l'IA propose l'éclairage adapté.</p>
-        <div class="pending">Brainstorming en cours avec le client</div>
-      </div>
-    </div>
+        <div class="anc-flow" aria-label="Schéma : moteur de contenu automatisé, actualités, newsletter et réseaux sociaux">
+          <div class="anc-diagram">
+            <div class="anc-anim" id="anc-n1">
+              <div class="anc-trigger-node" id="anc-triggerNode">
+                <div class="anc-t-label">Déclencheur</div>
+                <div class="anc-t-title">Un événement lance le processus</div>
+                <div class="anc-trigger-tags">
+                  <span class="anc-trigger-tag">Nouveauté produit</span>
+                  <span class="anc-trigger-tag">Actualité du secteur</span>
+                  <span class="anc-trigger-tag">Mise à jour fournisseur</span>
+                  <span class="anc-trigger-tag">Photo uploadée depuis le terrain</span>
+                </div>
+              </div>
+            </div>
+            <div class="anc-arrow" id="anc-a1" aria-hidden="true">
+              <svg width="12" height="36" viewBox="0 0 12 36">
+                <line x1="6" y1="0" x2="6" y2="28" stroke="#5a4530" stroke-width="1.5"/>
+                <polygon points="6,36 1,26 11,26" fill="#5a4530"/>
+              </svg>
+            </div>
+            <div class="anc-anim" id="anc-n2">
+              <div class="anc-ia-node">
+                <div class="anc-ia-label">Génération IA</div>
+                <div class="anc-ia-title">Création automatique d'un brouillon</div>
+                <div class="anc-ia-desc">Le workflow génère automatiquement un contenu adapté à partir de l'événement déclencheur — titre, texte, format.</div>
+              </div>
+            </div>
+            <div class="anc-arrow" id="anc-a2" aria-hidden="true">
+              <svg width="12" height="36" viewBox="0 0 12 36">
+                <line x1="6" y1="0" x2="6" y2="28" stroke="#5a4530" stroke-width="1.5"/>
+                <polygon points="6,36 1,26 11,26" fill="#5a4530"/>
+              </svg>
+            </div>
+            <div class="anc-anim" id="anc-n3">
+              <div class="anc-validation-node">
+                <div class="anc-v-label">Validation humaine</div>
+                <div class="anc-v-title">L'équipe DAL relit et valide</div>
+                <div class="anc-v-desc">En quelques minutes, sans partir d'une page blanche.</div>
+              </div>
+            </div>
+            <svg class="anc-connector" id="anc-pc1" viewBox="0 0 860 44" preserveAspectRatio="none" aria-hidden="true">
+              <line x1="430" y1="0" x2="143" y2="44" stroke="#5a4530" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <line x1="430" y1="0" x2="430" y2="44" stroke="#5a4530" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <line x1="430" y1="0" x2="717" y2="44" stroke="#5a4530" stroke-width="1.5" stroke-dasharray="4 3"/>
+            </svg>
+            <div class="anc-channels-row" id="anc-n4">
+              <div class="anc-channel-card">
+                <div class="anc-ch-icon" aria-hidden="true">🌐</div>
+                <div class="anc-ch-name">Site web</div>
+                <div class="anc-ch-desc">Article publié automatiquement dans la section Actualités du site DAL.</div>
+                <div class="anc-ch-tag">SEO + visibilité</div>
+              </div>
+              <div class="anc-channel-card">
+                <div class="anc-ch-icon" aria-hidden="true">📧</div>
+                <div class="anc-ch-name">Newsletter</div>
+                <div class="anc-ch-desc">Envoyée à la base de contacts DAL — clients, architectes, prescripteurs.</div>
+                <div class="anc-ch-tag">Fidélisation</div>
+              </div>
+              <div class="anc-channel-card">
+                <div class="anc-ch-icon anc-ch-icon--svg" aria-hidden="true">
+                  <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="20" cy="11" r="4" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="10" cy="29" r="4" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="30" cy="29" r="4" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M17.2 14.3 12 25M22.8 14.3 28 25" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="anc-ch-name">Réseaux sociaux</div>
+                <div class="anc-ch-desc">Publications adaptées au format de chaque plateforme — LinkedIn, Instagram.</div>
+                <div class="anc-ch-tag">Notoriété</div>
+              </div>
+            </div>
+            <div class="anc-note" id="anc-note">
+              <strong>Le même message, trois canaux simultanés.</strong> Le contenu est généré une seule fois et adapté automatiquement à chaque format — sans travail supplémentaire pour l'équipe DAL.
+            </div>
+          </div>
+        </div>
 
-    <div class="solution-item">
-      <div class="solution-number">04</div>
-      <div class="solution-content">
-        <span class="solution-tag">Priorité moyenne</span>
-        <h3>Chatbot technique</h3>
-        <p>Un assistant disponible 24h/24 capable de répondre aux questions techniques courantes, d'orienter vers la bonne gamme et de collecter les informations d'un projet pour les transmettre à l'équipe.</p>
-      </div>
-    </div>
-
-    <div class="solution-item">
-      <div class="solution-number">05</div>
-      <div class="solution-content">
-        <span class="solution-tag">Phase 2</span>
-        <h3>Actualités & Newsletter IA</h3>
-        <p>L'IA génère des brouillons d'articles et de newsletters à partir des nouveaux produits et actualités. L'équipe valide et publie — sans partir d'une page blanche. Le site reste vivant, le référencement s'améliore.</p>
+        <div class="solution-anc-narrative">
+          <p>Le site de DAL doit rester vivant pour exister aux yeux de ses clients et des moteurs de recherche. Cette solution automatise l'ensemble du cycle de contenu — de la rédaction à la diffusion — sans mobiliser de temps humain au quotidien.</p>
+          <p>Le fonctionnement est le suivant : à partir d'un événement déclencheur — qu'il s'agisse d'une nouveauté produit, d'une actualité du secteur, d'une mise à jour d'un fournisseur, ou même d'une photo uploadée depuis le terrain — un workflow automatisé génère un brouillon de contenu. L'équipe DAL relit, valide et publie en quelques minutes, sans partir d'une page blanche.</p>
+          <p>Ce même contenu alimente ensuite automatiquement trois canaux : la section Actualités du site, une newsletter envoyée à la base de contacts de DAL (clients, architectes, prescripteurs), et des publications adaptées pour les réseaux sociaux. Le message est le même, le format est adapté à chaque canal.</p>
+          <p><strong>Ce que cela apporte à DAL :</strong> un site régulièrement mis à jour, favorable au référencement naturel ; un lien maintenu avec la clientèle professionnelle entre deux projets ; et un positionnement progressif de DAL comme référent et expert dans son domaine, sans que cela représente une charge supplémentaire pour l'équipe.</p>
+        </div>
       </div>
     </div>
 
@@ -737,7 +2037,7 @@
 <section id="benefices">
   <div class="section-label">04 — Bénéfices attendus</div>
 
-  <h2>Un impact <em>concret</em><br>sur votre activité</h2>
+  <h2 class="h2-single-line">Un impact <em>concret</em> sur votre activité</h2>
 
   <div class="benefits-grid">
     <div class="benefit-block">
@@ -788,6 +2088,157 @@
   document.querySelectorAll('section, .footer-cta').forEach(el => {
     observer.observe(el);
   });
+
+  (function () {
+    const pairs = [
+      { trigger: document.getElementById('structure-trigger-1'), panel: document.getElementById('structure-detail-1') },
+      { trigger: document.getElementById('structure-trigger-2'), panel: document.getElementById('structure-detail-2') },
+      { trigger: document.getElementById('structure-trigger-3'), panel: document.getElementById('structure-detail-3') },
+      { trigger: document.getElementById('structure-trigger-4'), panel: document.getElementById('structure-detail-4') },
+      { trigger: document.getElementById('structure-trigger-5'), panel: document.getElementById('structure-detail-5') },
+      { trigger: document.getElementById('structure-trigger-6'), panel: document.getElementById('structure-detail-6') },
+      { trigger: document.getElementById('structure-trigger-7'), panel: document.getElementById('structure-detail-7') }
+    ].filter(function (p) { return p.trigger && p.panel; });
+
+    function closeAll() {
+      pairs.forEach(function (p) {
+        p.panel.setAttribute('hidden', '');
+        p.trigger.classList.remove('is-open');
+        p.trigger.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    pairs.forEach(function (p) {
+      p.trigger.addEventListener('click', function () {
+        var willOpen = p.panel.hasAttribute('hidden');
+        if (willOpen) {
+          closeAll();
+          p.panel.removeAttribute('hidden');
+          p.trigger.classList.add('is-open');
+          p.trigger.setAttribute('aria-expanded', 'true');
+        } else {
+          p.panel.setAttribute('hidden', '');
+          p.trigger.classList.remove('is-open');
+          p.trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  })();
+
+  (function () {
+    var root = document.querySelector('.aca-flow');
+    if (!root) return;
+
+    var steps = [
+      { id: 'aca-n1', delay: 300 },
+      { id: 'aca-a1', delay: 800 },
+      { id: 'aca-n2', delay: 1100 },
+      { id: 'aca-pc1', delay: 1500 },
+      { id: 'aca-n3', delay: 1800 },
+      { id: 'aca-pc2', delay: 2400 },
+      { id: 'aca-n4', delay: 2700 },
+      { id: 'aca-a2', delay: 3300 },
+      { id: 'aca-n5', delay: 3600 },
+      { id: 'aca-a3', delay: 4100 },
+      { id: 'aca-n6', delay: 4400 },
+      { id: 'aca-a4', delay: 4900 },
+      { id: 'aca-n7', delay: 5200 }
+    ];
+
+    var played = false;
+
+    function runSequence() {
+      if (played) return;
+      played = true;
+      steps.forEach(function (s) {
+        setTimeout(function () {
+          var el = document.getElementById(s.id);
+          if (el) el.classList.add('aca-visible');
+        }, s.delay);
+      });
+      var entry = document.getElementById('aca-entryNode');
+      if (entry) {
+        setTimeout(function () {
+          setInterval(function () {
+            entry.style.boxShadow = '0 0 0 8px rgba(201,169,110,0.12), 0 0 0 16px rgba(201,169,110,0.05)';
+            setTimeout(function () { entry.style.boxShadow = 'none'; }, 700);
+          }, 2500);
+        }, 800);
+      }
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              runSequence();
+              io.disconnect();
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      io.observe(root);
+    } else {
+      runSequence();
+    }
+  })();
+
+  (function () {
+    var root = document.querySelector('.anc-flow');
+    if (!root) return;
+
+    var steps = [
+      { id: 'anc-n1', delay: 300 },
+      { id: 'anc-a1', delay: 900 },
+      { id: 'anc-n2', delay: 1200 },
+      { id: 'anc-a2', delay: 1800 },
+      { id: 'anc-n3', delay: 2100 },
+      { id: 'anc-pc1', delay: 2700 },
+      { id: 'anc-n4', delay: 3000 },
+      { id: 'anc-note', delay: 3800 }
+    ];
+
+    var played = false;
+
+    function runSequence() {
+      if (played) return;
+      played = true;
+      steps.forEach(function (s) {
+        setTimeout(function () {
+          var el = document.getElementById(s.id);
+          if (el) el.classList.add('anc-visible');
+        }, s.delay);
+      });
+      var trigger = document.getElementById('anc-triggerNode');
+      if (trigger) {
+        setTimeout(function () {
+          setInterval(function () {
+            trigger.style.boxShadow = '0 0 0 8px rgba(201,169,110,0.1), 0 0 0 16px rgba(201,169,110,0.04)';
+            setTimeout(function () { trigger.style.boxShadow = 'none'; }, 700);
+          }, 2500);
+        }, 800);
+      }
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              runSequence();
+              io.disconnect();
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      io.observe(root);
+    } else {
+      runSequence();
+    }
+  })();
 </script>
 
 </body>
