@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition — DAL Éclairage Hitech</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --noir: #0a0a0a;
+    --noir-soft: #111111;
+    --noir-card: #161616;
+    --or: #c9a96e;
+    --or-light: #e8c99a;
+    --or-dim: #7a6140;
+    --blanc: #f5f0e8;
+    --blanc-dim: #9e9890;
+    --border: rgba(201,169,110,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--noir);
+    color: var(--blanc);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--or);
+    text-transform: uppercase;
+  }
+
+  .nav-prepared {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--blanc-dim);
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(201,169,110,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(201,169,110,0.04) 0%, transparent 60%);
+  }
+
+  .hero-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--or-dim) 40%, transparent);
+    opacity: 0.3;
+  }
+
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.3s;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: var(--or);
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.5s;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--or-light);
+  }
+
+  .hero-sub {
+    max-width: 500px;
+    font-size: 0.95rem;
+    color: var(--blanc-dim);
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.7s;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 3rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blanc-dim);
+    writing-mode: vertical-rl;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1.2s;
+  }
+
+  .hero-scroll::after {
+    content: '';
+    width: 1px;
+    height: 4rem;
+    background: linear-gradient(to bottom, var(--or-dim), transparent);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background: var(--or);
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 3rem;
+  }
+
+  h2 em {
+    font-style: italic;
+    color: var(--or-light);
+  }
+
+  /* AUDIT GRID */
+  .audit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 4rem;
+  }
+
+  .audit-item {
+    background: var(--noir-card);
+    padding: 2.5rem;
+    transition: background 0.3s ease;
+  }
+
+  .audit-item:hover {
+    background: #1a1a1a;
+  }
+
+  .audit-item-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or-dim);
+    margin-bottom: 1rem;
+  }
+
+  .audit-item h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+    color: var(--blanc);
+  }
+
+  .audit-item p {
+    font-size: 0.875rem;
+    color: var(--blanc-dim);
+    line-height: 1.8;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin: 1rem 0 4rem;
+  }
+
+  /* SOLUTIONS */
+  .solutions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .solution-item {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+
+  .solution-item:hover .solution-number {
+    color: var(--or-light);
+  }
+
+  .solution-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--or-dim);
+    line-height: 1;
+    transition: color 0.3s ease;
+  }
+
+  .solution-content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  .solution-content .solution-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--or);
+    border: 1px solid var(--or-dim);
+    padding: 0.2rem 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .solution-content p {
+    font-size: 0.875rem;
+    color: var(--blanc-dim);
+    line-height: 1.8;
+  }
+
+  /* STRUCTURE WEB */
+  .structure-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .structure-page {
+    background: var(--noir-card);
+    padding: 2rem 1.2rem;
+    text-align: center;
+    transition: background 0.3s ease;
+    position: relative;
+  }
+
+  .structure-page:hover {
+    background: #1c1a16;
+  }
+
+  .structure-page.featured {
+    background: #1a1710;
+  }
+
+  .structure-page.featured::after {
+    content: '★';
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    color: var(--or);
+    font-size: 0.6rem;
+  }
+
+  .structure-page .page-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--or-dim);
+    line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+
+  .structure-page .page-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--blanc);
+    margin-bottom: 0.8rem;
+  }
+
+  .structure-page .page-desc {
+    font-size: 0.7rem;
+    color: var(--blanc-dim);
+    line-height: 1.6;
+  }
+
+  /* BENEFITS */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 1rem;
+  }
+
+  .benefit-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .benefit-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .benefit-list li {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--blanc-dim);
+    align-items: flex-start;
+  }
+
+  .benefit-list li::before {
+    content: '→';
+    color: var(--or);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  /* PHRASE CLE */
+  .phrase-block {
+    border: 1px solid var(--border);
+    padding: 4rem;
+    text-align: center;
+    margin: 2rem 0 4rem;
+    position: relative;
+    background: linear-gradient(135deg, rgba(201,169,110,0.03), transparent);
+  }
+
+  .phrase-block::before,
+  .phrase-block::after {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    color: var(--or-dim);
+    opacity: 0.2;
+    position: absolute;
+    line-height: 1;
+  }
+
+  .phrase-block::before { top: 1rem; left: 2rem; }
+  .phrase-block::after { bottom: -1rem; right: 2rem; content: '"'; }
+
+  .phrase-block p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--or-light);
+    line-height: 1.4;
+  }
+
+  .phrase-block span {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    color: var(--blanc-dim);
+    font-style: normal;
+    margin-top: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* FOOTER CTA */
+  .footer-cta {
+    padding: 6rem 3rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    background: var(--noir-soft);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .footer-cta.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .footer-cta .prepared-by {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--blanc-dim);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-cta h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 300;
+    margin-bottom: 2rem;
+    line-height: 1.1;
+  }
+
+  .footer-cta .contact-info {
+    font-size: 0.85rem;
+    color: var(--blanc-dim);
+    line-height: 2;
+  }
+
+  .footer-cta .contact-info a {
+    color: var(--or);
+    text-decoration: none;
+    border-bottom: 1px solid var(--or-dim);
+    padding-bottom: 1px;
+    transition: color 0.2s ease;
+  }
+
+  .footer-cta .contact-info a:hover {
+    color: var(--or-light);
+  }
+
+  .or-line {
+    width: 4rem;
+    height: 1px;
+    background: var(--or-dim);
+    margin: 2.5rem auto;
+  }
+
+  /* PENDING BADGE */
+  .pending {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--or-dim);
+    border: 1px solid var(--or-dim);
+    padding: 0.2rem 0.7rem;
+    margin-top: 0.8rem;
+    opacity: 0.8;
+  }
+
+  .pending::before {
+    content: '○';
+    font-size: 0.5rem;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .hero { padding: 0 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+    .audit-grid { grid-template-columns: 1fr; }
+    .structure-grid { grid-template-columns: repeat(2, 1fr); }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .phrase-block { padding: 2.5rem; }
+    .footer-cta { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">DAL Éclairage Hitech</div>
+  <div class="nav-prepared">Proposition · FacilIA</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+
+  <div class="hero-tag">Proposition de collaboration</div>
+
+  <h1>
+    Lumière sur<br>
+    votre <em>présence</em><br>
+    digitale
+  </h1>
+
+  <p class="hero-sub">
+    Une analyse de votre site actuel, des solutions IA concrètes, 
+    et une vision claire pour faire de DAL Éclairage Hitech 
+    la référence en éclairage sur le marché genevois.
+  </p>
+
+  <div class="hero-scroll">Défiler</div>
+</div>
+
+
+<!-- SECTION 1 : AUDIT -->
+<section id="audit">
+  <div class="section-label">01 — Audit rapide</div>
+
+  <h2>Ce que nous<br>avons <em>observé</em></h2>
+
+  <div class="audit-grid">
+    <div class="audit-item">
+      <div class="audit-item-label">Message & cible</div>
+      <h3>Un discours trop générique</h3>
+      <p>Le site actuel ne précise pas clairement à qui s'adresse DAL. En quelques secondes, un visiteur ne sait pas si cette entreprise est faite pour lui — architecte, électricien ou particulier.</p>
+    </div>
+    <div class="audit-item">
+      <div class="audit-item-label">Visuels & photos</div>
+      <h3>Un site trop statique</h3>
+      <p>L'éclairage est un secteur visuel par nature. Sans galerie de réalisations ni photos d'ambiance, il est impossible de démontrer la valeur réelle de DAL.</p>
+    </div>
+    <div class="audit-item">
+      <div class="audit-item-label">Locaux & équipe</div>
+      <h3>Un actif invisible</h3>
+      <p>Votre bureau, votre atelier, votre équipe — un espace professionnel qui témoigne du sérieux de l'entreprise et qui n'apparaît nulle part sur le site actuel.</p>
+    </div>
+    <div class="audit-item">
+      <div class="audit-item-label">Marques partenaires</div>
+      <h3>Des atouts non valorisés</h3>
+      <p>Linealight, Nova Luce, Luxiona, Stilnovo… Des marques premium qui sont aujourd'hui réduites à des images cliquables menant vers des PDFs. Un potentiel inexploité.</p>
+    </div>
+  </div>
+
+  <!-- phrase clé -->
+  <div class="phrase-block">
+    <p>DAL Éclairage Hitech – Expertise de lumière au service des professionnels</p>
+    <span>— Votre signature. Elle existe déjà. Elle doit être au cœur de tout.</span>
+  </div>
+</section>
+
+
+<!-- SECTION 2 : STRUCTURE WEB -->
+<section id="structure">
+  <div class="section-label">02 — Nouveau site</div>
+
+  <h2>Une architecture<br>pensée pour <em>convertir</em></h2>
+
+  <div class="structure-grid">
+    <div class="structure-page">
+      <div class="page-num">1</div>
+      <div class="page-name">Accueil</div>
+      <div class="page-desc">Deux portes d'entrée claires : projet ou produit</div>
+    </div>
+    <div class="structure-page">
+      <div class="page-num">2</div>
+      <div class="page-name">La Société</div>
+      <div class="page-desc">Photos des locaux, équipe, histoire</div>
+    </div>
+    <div class="structure-page">
+      <div class="page-num">3</div>
+      <div class="page-name">Nos Marques</div>
+      <div class="page-desc">Partenaires valorisés, pas des PDFs</div>
+    </div>
+    <div class="structure-page">
+      <div class="page-num">4</div>
+      <div class="page-name">Réalisations</div>
+      <div class="page-desc">Galerie filtrée, projets réels</div>
+    </div>
+    <div class="structure-page featured">
+      <div class="page-num">5</div>
+      <div class="page-name">Votre Projet</div>
+      <div class="page-desc">Accompagnement de l'étude à la réalisation</div>
+    </div>
+    <div class="structure-page">
+      <div class="page-num">6</div>
+      <div class="page-name">Actualités</div>
+      <div class="page-desc">Blog dynamique, SEO, newsletter</div>
+    </div>
+    <div class="structure-page">
+      <div class="page-num">7</div>
+      <div class="page-name">Contact</div>
+      <div class="page-desc">Simple, direct, efficace</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION 3 : SOLUTIONS IA -->
+<section id="solutions">
+  <div class="section-label">03 — Solutions IA</div>
+
+  <h2>Des fonctionnalités<br><em>intelligentes</em><br>à votre service</h2>
+
+  <div class="solutions-list">
+
+    <div class="solution-item">
+      <div class="solution-number">01</div>
+      <div class="solution-content">
+        <span class="solution-tag">Priorité haute</span>
+        <h3>Assistant de sélection intelligent</h3>
+        <p>Un configurateur intégré à la page d'accueil qui guide le visiteur en 3-4 questions vers les produits et services adaptés à son projet — et génère automatiquement un lead qualifié pour l'équipe.</p>
+      </div>
+    </div>
+
+    <div class="solution-item">
+      <div class="solution-number">02</div>
+      <div class="solution-content">
+        <span class="solution-tag">Priorité haute</span>
+        <h3>Galerie de réalisations</h3>
+        <p>Une vitrine de projets réalisés avec photos professionnelles, filtrables par type d'éclairage et contexte d'usage. La preuve sociale la plus puissante pour convaincre un architecte ou un prescripteur.</p>
+      </div>
+    </div>
+
+    <div class="solution-item">
+      <div class="solution-number">03</div>
+      <div class="solution-content">
+        <span class="solution-tag">En définition</span>
+        <h3>IA intégrée à l'espace Projets</h3>
+        <p>Deux pistes à explorer : un guide de projet intelligent qui génère un brief technique automatique, ou une fonctionnalité de visualisation où le client uploade une photo de son espace et l'IA propose l'éclairage adapté.</p>
+        <div class="pending">Brainstorming en cours avec le client</div>
+      </div>
+    </div>
+
+    <div class="solution-item">
+      <div class="solution-number">04</div>
+      <div class="solution-content">
+        <span class="solution-tag">Priorité moyenne</span>
+        <h3>Chatbot technique</h3>
+        <p>Un assistant disponible 24h/24 capable de répondre aux questions techniques courantes, d'orienter vers la bonne gamme et de collecter les informations d'un projet pour les transmettre à l'équipe.</p>
+      </div>
+    </div>
+
+    <div class="solution-item">
+      <div class="solution-number">05</div>
+      <div class="solution-content">
+        <span class="solution-tag">Phase 2</span>
+        <h3>Actualités & Newsletter IA</h3>
+        <p>L'IA génère des brouillons d'articles et de newsletters à partir des nouveaux produits et actualités. L'équipe valide et publie — sans partir d'une page blanche. Le site reste vivant, le référencement s'améliore.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- SECTION 4 : BÉNÉFICES -->
+<section id="benefices">
+  <div class="section-label">04 — Bénéfices attendus</div>
+
+  <h2>Un impact <em>concret</em><br>sur votre activité</h2>
+
+  <div class="benefits-grid">
+    <div class="benefit-block">
+      <h3>Efficacité opérationnelle</h3>
+      <ul class="benefit-list">
+        <li>Prospects qualifiés dès la première prise de contact — moins d'allers-retours par email</li>
+        <li>Questions techniques récurrentes traitées automatiquement, 24h/24</li>
+        <li>Génération de contenu simplifiée grâce à l'IA</li>
+        <li>Un site qui travaille pour vous même en dehors des heures d'ouverture</li>
+      </ul>
+    </div>
+    <div class="benefit-block">
+      <h3>Taux de conversion</h3>
+      <ul class="benefit-list">
+        <li>Un visiteur qui comprend immédiatement si DAL est fait pour lui</li>
+        <li>La galerie de réalisations comme déclencheur de confiance pour les professionnels</li>
+        <li>Le positionnement "partenaire de projet" attire des clients à plus haute valeur</li>
+        <li>Une présence digitale qui reflète enfin le niveau réel de l'entreprise</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER CTA -->
+<div class="footer-cta">
+  <div class="prepared-by">Proposition préparée par</div>
+  <h2>FacilIA<br><em>Automatisations & IA</em></h2>
+  <div class="or-line"></div>
+  <div class="contact-info">
+    Lula Martínez Pérez<br>
+    <a href="mailto:lula@lulamartinezperez.com">lula@lulamartinezperez.com</a><br>
+    <a href="https://lulamartinezperez.com">lulamartinezperez.com</a>
+  </div>
+</div>
+
+
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('section, .footer-cta').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
