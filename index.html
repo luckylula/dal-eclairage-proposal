@@ -162,8 +162,79 @@
     font-size: clamp(1.08rem, 1.65vw, 1.4rem);
     color: var(--blanc-dim);
     line-height: 1.8;
+    margin-bottom: 0;
     opacity: 0;
     animation: fadeUp 0.8s ease forwards 0.7s;
+  }
+
+  .hero-toc {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.6rem;
+    margin-top: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.95s;
+  }
+
+  .hero-toc a {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.2rem;
+    min-width: 7.5rem;
+    max-width: 11rem;
+    padding: 0.55rem 0.75rem 0.5rem;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: none;
+    color: var(--blanc);
+    border: 1px solid rgba(201, 169, 110, 0.38);
+    border-radius: 7px;
+    background: rgba(201, 169, 110, 0.07);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  }
+
+  .hero-toc-num {
+    font-size: clamp(0.68rem, 1vw, 0.78rem);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--or);
+  }
+
+  .hero-toc-label {
+    font-size: clamp(0.78rem, 1.15vw, 0.88rem);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1.25;
+    color: var(--blanc);
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .hero-toc a:hover {
+    border-color: rgba(201, 169, 110, 0.55);
+    background: rgba(201, 169, 110, 0.14);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .hero-toc a:hover .hero-toc-num {
+    color: var(--or-light);
+  }
+
+  .hero-toc a:hover .hero-toc-label {
+    color: var(--or-light);
+  }
+
+  .hero-toc a:active {
+    transform: translateY(0);
+  }
+
+  .hero-toc a:focus-visible {
+    outline: 2px solid var(--or);
+    outline-offset: 3px;
   }
 
   .hero-scroll {
@@ -196,6 +267,7 @@
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.7s ease, transform 0.7s ease;
+    scroll-margin-top: 5.75rem;
   }
 
   .hero + section {
@@ -1700,6 +1772,32 @@
     <p class="hero-sub">
       Une analyse de votre site actuel, des solutions IA concrètes, et une vision claire pour faire de DAL Éclairage Hitech la référence en éclairage sur le marché genevois.
     </p>
+    <nav class="hero-toc" aria-label="Accès direct aux sections de la proposition">
+      <a href="#audit" title="Aller à la section 01 — Audit rapide">
+        <span class="hero-toc-num">01</span>
+        <span class="hero-toc-label">Audit rapide</span>
+      </a>
+      <a href="#structure" title="Aller à la section 02 — Nouveau site">
+        <span class="hero-toc-num">02</span>
+        <span class="hero-toc-label">Nouveau site</span>
+      </a>
+      <a href="#solutions" title="Aller à la section 03 — Solutions IA">
+        <span class="hero-toc-num">03</span>
+        <span class="hero-toc-label">Solutions IA</span>
+      </a>
+      <a href="#feuille-route" title="Aller à la section 04 — Feuille de route technique">
+        <span class="hero-toc-num">04</span>
+        <span class="hero-toc-label">Feuille de route</span>
+      </a>
+      <a href="#benefices" title="Aller à la section 05 — Bénéfices attendus">
+        <span class="hero-toc-num">05</span>
+        <span class="hero-toc-label">Bénéfices attendus</span>
+      </a>
+      <a href="#budget-delais" title="Aller à la section 06 — Budget et délais">
+        <span class="hero-toc-num">06</span>
+        <span class="hero-toc-label">Budget et délais</span>
+      </a>
+    </nav>
   </div>
 
   <div class="hero-scroll">Défiler</div>
