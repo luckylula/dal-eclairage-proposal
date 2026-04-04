@@ -1152,9 +1152,11 @@
   .structure-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    background: var(--border);
+    gap: 8px;
+    padding: 10px;
+    background: rgba(201, 169, 110, 0.05);
     border: 1px solid var(--border);
+    border-radius: 12px;
   }
 
   .structure-page {
@@ -1205,23 +1207,49 @@
     color: inherit;
     text-align: center;
     cursor: pointer;
-    border: none;
+    border: 1px solid rgba(201, 169, 110, 0.28);
+    border-radius: 8px;
     margin: 0;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+    transition:
+      background 0.25s ease,
+      border-color 0.25s ease,
+      box-shadow 0.25s ease,
+      transform 0.2s ease;
+  }
+
+  .structure-page--clickable:hover {
+    background: #1f1d18;
+    border-color: rgba(201, 169, 110, 0.5);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .structure-page--clickable:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 
   .structure-page--clickable:focus-visible {
     outline: 2px solid var(--or);
-    outline-offset: 2px;
+    outline-offset: 3px;
   }
 
   .structure-page--clickable.is-open {
-    background: #1f1c15;
-    box-shadow: inset 0 0 0 1px var(--or-dim);
+    background: linear-gradient(165deg, rgba(201, 169, 110, 0.12), #1a1814);
+    border-color: rgba(201, 169, 110, 0.55);
+    box-shadow:
+      inset 0 0 0 1px rgba(201, 169, 110, 0.35),
+      0 3px 14px rgba(201, 169, 110, 0.08);
+  }
+
+  .structure-page--clickable.featured:hover {
+    background: #1e1b12;
   }
 
   .structure-grid-hint {
@@ -1247,14 +1275,20 @@
   }
 
   .structure-page--clickable .page-name::after {
-    content: '↓';
+    content: '';
     display: block;
-    margin-top: 0.5rem;
-    font-size: 0.7rem;
-    color: var(--or-dim);
-    font-family: 'DM Sans', sans-serif;
-    letter-spacing: 0.02em;
-    line-height: 1;
+    width: 0;
+    height: 0;
+    margin: 0.55rem auto 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid var(--or-dim);
+    transition: transform 0.25s ease, border-top-color 0.25s ease;
+  }
+
+  .structure-page--clickable[aria-expanded="true"] .page-name::after {
+    transform: rotate(180deg);
+    border-top-color: var(--or-light);
   }
 
   .structure-page--clickable:hover .page-num {
@@ -1262,7 +1296,7 @@
   }
 
   .structure-page--clickable:hover .page-name::after {
-    color: var(--or);
+    border-top-color: var(--or);
   }
 
   .structure-wrap {
@@ -1371,12 +1405,91 @@
     color: var(--or-light);
   }
 
+  /* FEUILLE DE ROUTE */
+  #feuille-route .feuille-route-body {
+    max-width: 52rem;
+    margin-top: 0.5rem;
+  }
+
+  #feuille-route .feuille-route-phase-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.45rem, 2.1vw, 1.8rem);
+    font-weight: 400;
+    color: var(--or-light);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  #feuille-route .feuille-route-body .structure-detail-intro {
+    margin-bottom: 1.75rem;
+  }
+
+  #feuille-route .feuille-route-phase + .feuille-route-phase {
+    margin-top: 2.75rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  #feuille-route .feuille-route-text {
+    font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+    color: var(--blanc-dim);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    max-width: 52rem;
+  }
+
+  #feuille-route .feuille-route-text:last-child {
+    margin-bottom: 0;
+  }
+
+  #feuille-route .feuille-route-solution-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.15rem, 1.65vw, 1.38rem);
+    font-weight: 400;
+    color: var(--blanc);
+    margin-top: 1.75rem;
+    margin-bottom: 0.65rem;
+    line-height: 1.35;
+  }
+
+  #feuille-route .feuille-route-phase .feuille-route-solution-title:first-of-type {
+    margin-top: 1.35rem;
+  }
+
   /* BENEFITS */
+  .benefits-stack {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+
+  .benefits-mini-section {
+    padding-bottom: 2.5rem;
+  }
+
+  .benefits-mini-section + .benefits-mini-section {
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .benefits-mini-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.65rem, 2.5vw, 2.05rem);
+    font-weight: 400;
+    color: var(--or-light);
+    margin-bottom: 1.75rem;
+    line-height: 1.25;
+  }
+
+  .benefits-mini-section .benefits-grid {
+    margin-top: 0;
+  }
+
   .benefits-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
-    margin-top: 1rem;
   }
 
   .benefit-block h3 {
@@ -1601,9 +1714,9 @@
 
   <div class="audit-grid">
     <div class="audit-item">
-      <div class="audit-item-label">Message & cible</div>
-      <h3>Un message sans identité</h3>
-      <p>Le site actuel ne précise pas clairement à qui s'adresse DAL. En quelques secondes, un visiteur ne sait pas si cette entreprise est faite pour lui — architecte, électricien ou particulier.</p>
+      <div class="audit-item-label">Marques partenaires</div>
+      <h3>Des atouts non valorisés</h3>
+      <p>Linealight, Nova Luce, Luxiona, Stilnovo… Des marques premium qui sont aujourd'hui réduites à des images cliquables menant vers des PDFs. Un potentiel inexploité.</p>
     </div>
     <div class="audit-item">
       <div class="audit-item-label">Visuels & photos</div>
@@ -1612,13 +1725,13 @@
     </div>
     <div class="audit-item">
       <div class="audit-item-label">Locaux & équipe</div>
-      <h3>Un actif invisible</h3>
+      <h3>Un actif extrêmement précieux, mais invisible</h3>
       <p>Votre bureau, votre atelier, votre équipe — un espace professionnel qui témoigne du sérieux de l'entreprise et qui n'apparaît nulle part sur le site actuel.</p>
     </div>
     <div class="audit-item">
-      <div class="audit-item-label">Marques partenaires</div>
-      <h3>Des atouts non valorisés</h3>
-      <p>Linealight, Nova Luce, Luxiona, Stilnovo… Des marques premium qui sont aujourd'hui réduites à des images cliquables menant vers des PDFs. Un potentiel inexploité.</p>
+      <div class="audit-item-label">Message & cible</div>
+      <h3>Un message sans identité</h3>
+      <p>Le site actuel ne précise pas clairement à qui s'adresse DAL. En quelques secondes, un visiteur ne sait pas si cette entreprise est faite pour lui — architecte, électricien ou particulier.</p>
     </div>
   </div>
 
@@ -1637,7 +1750,7 @@
   <h2 id="structure-plan-heading" class="h2-single-line">Une architecture pensée pour <em>convertir</em></h2>
 
   <div class="structure-wrap" role="region" aria-labelledby="structure-plan-heading" aria-describedby="structure-grid-hint">
-    <p id="structure-grid-hint" class="structure-grid-hint">Cliquez sur une case du plan (numéro + titre) pour afficher le détail de la page juste en dessous.</p>
+    <p id="structure-grid-hint" class="structure-grid-hint">Chaque page du plan est sélectionnable : choisissez un numéro pour afficher le détail correspondant sous le schéma.</p>
     <div class="structure-grid">
       <button type="button" class="structure-page structure-page--clickable" id="structure-trigger-1" aria-expanded="false" aria-controls="structure-detail-1" title="Afficher le détail sous le plan">
         <span class="page-num">1</span>
@@ -2033,32 +2146,131 @@
 </section>
 
 
-<!-- SECTION 4 : BÉNÉFICES -->
-<section id="benefices">
-  <div class="section-label">04 — Bénéfices attendus</div>
+<!-- SECTION 4 : FEUILLE DE ROUTE TECHNIQUE -->
+<section id="feuille-route">
+  <div class="section-label">04 — Feuille de route technique</div>
 
-  <h2 class="h2-single-line">Un impact <em>concret</em> sur votre activité</h2>
+  <h2 class="h2-single-line">Les grandes étapes de l'<em>intégration</em></h2>
 
-  <div class="benefits-grid">
-    <div class="benefit-block">
-      <h3>Efficacité opérationnelle</h3>
-      <ul class="benefit-list">
-        <li>Prospects qualifiés dès la première prise de contact — moins d'allers-retours par email</li>
-        <li>Questions techniques récurrentes traitées automatiquement, 24h/24</li>
-        <li>Génération de contenu simplifiée grâce à l'IA</li>
-        <li>Un site qui travaille pour vous même en dehors des heures d'ouverture</li>
+  <div class="feuille-route-body">
+    <div class="feuille-route-phase">
+      <h3 class="feuille-route-phase-title">Phase 1 — Création du site web</h3>
+      <p class="structure-detail-intro">Cette phase est consacrée à la conception et au développement du nouveau site. Elle se déroule en quatre étapes successives, chacune validée avant de passer à la suivante.</p>
+      <ul class="structure-detail-list">
+        <li><strong>Réunion de cadrage</strong> — Une session de travail avec l'équipe DAL pour valider la structure des sections, la navigation, les messages clés et les choix visuels. Aucun développement ne commence avant cette validation.</li>
+        <li><strong>Contenus</strong> — DAL prend en charge la rédaction des textes pour chaque section du site. Un brief de contenu sera fourni pour guider la rédaction section par section.</li>
+        <li><strong>Session photo</strong> — Une session photographique est organisée dans les locaux DAL (bureau, atelier, espace d'exposition, équipe) pour produire les visuels du site. Certaines images complémentaires pourront être générées par IA.</li>
+        <li><strong>Prototype et validation</strong> — Un premier prototype du site est développé et soumis à DAL pour validation. Les retours sont intégrés de façon itérative jusqu'à la mise en ligne finale.</li>
       </ul>
     </div>
-    <div class="benefit-block">
-      <h3>Taux de conversion</h3>
-      <ul class="benefit-list">
-        <li>Un visiteur qui comprend immédiatement si DAL est fait pour lui</li>
-        <li>La galerie de réalisations comme déclencheur de confiance pour les professionnels</li>
-        <li>Le positionnement "partenaire de projet" attire des clients à plus haute valeur</li>
-        <li>Une présence digitale qui reflète enfin le niveau réel de l'entreprise</li>
+
+    <div class="feuille-route-phase">
+      <h3 class="feuille-route-phase-title">Phase 2 — Intégration des solutions IA</h3>
+      <p class="structure-detail-intro">Cette phase démarre une fois le site validé et en ligne. Elle consiste à intégrer les fonctionnalités IA définies en priorité avec DAL.</p>
+      <p class="feuille-route-text">L'ordre d'intégration est flexible — chaque solution peut être développée et testée indépendamment. La première solution à intégrer sera décidée conjointement avec l'équipe DAL selon les priorités du moment.</p>
+      <h4 class="feuille-route-solution-title">Solution A — L'Assistant de Conception Architecturale Virtuel</h4>
+      <ul class="structure-detail-list">
+        <li><strong>Réunion de cadrage</strong> — Session de travail avec DAL pour définir le périmètre exact : types de questions posées, gammes de produits à intégrer dans les recommandations, ton de la conversation et format du rapport final envoyé au client.</li>
+        <li><strong>Préparation des contenus</strong> — DAL fournit les informations nécessaires au bon fonctionnement de l'assistant : descriptions des gammes, critères de recommandation, informations techniques de base.</li>
+        <li><strong>Prototype</strong> — Un premier prototype de l'assistant est développé et testé en conditions réelles.</li>
+        <li><strong>Validation et ajustements</strong> — Les retours sont intégrés de façon itérative jusqu'à ce que l'expérience soit jugée satisfaisante.</li>
+        <li><strong>Mise en production</strong> — L'assistant est intégré à la page Votre Projet et mis en ligne.</li>
+      </ul>
+      <h4 class="feuille-route-solution-title">Solution B — Le Moteur de Contenu Automatisé</h4>
+      <ul class="structure-detail-list">
+        <li><strong>Réunion de cadrage</strong> — Définition des déclencheurs, des canaux de diffusion et du niveau de validation humaine souhaité par l'équipe DAL.</li>
+        <li><strong>Prototype</strong> — Développement du workflow et test sur un premier contenu réel.</li>
+        <li><strong>Validation et ajustements</strong> — Ajustements jusqu'à satisfaction.</li>
+        <li><strong>Mise en production</strong> — Le moteur est activé et intégré au site, à la newsletter et aux réseaux sociaux.</li>
       </ul>
     </div>
   </div>
+</section>
+
+
+<!-- SECTION 5 : BÉNÉFICES -->
+<section id="benefices">
+  <div class="section-label">05 — Bénéfices attendus</div>
+
+  <h2 class="h2-single-line">Un impact <em>concret</em> sur votre activité</h2>
+
+  <div class="benefits-stack">
+    <div class="benefits-mini-section">
+      <h3 class="benefits-mini-title">Refonte du site web</h3>
+      <div class="benefits-grid">
+        <div class="benefit-block">
+          <h3>Efficacité opérationnelle</h3>
+          <ul class="benefit-list">
+            <li>Un visiteur qui comprend immédiatement ce que fait DAL et à qui cela s'adresse — moins de demandes imprécises et d'allers-retours par email</li>
+            <li>La page Votre Projet avec son formulaire de brief structuré permet de recevoir des demandes déjà organisées dès le premier contact</li>
+            <li>Un site qui travaille pour DAL même en dehors des heures d'ouverture</li>
+          </ul>
+        </div>
+        <div class="benefit-block">
+          <h3>Taux de conversion</h3>
+          <ul class="benefit-list">
+            <li>Un visiteur qui sait en quelques secondes si DAL est fait pour lui est un visiteur qui passe à l'action</li>
+            <li>La galerie de réalisations comme déclencheur de confiance pour les clients professionnels — architectes, décorateurs, prescripteurs</li>
+            <li>Le positionnement "partenaire de projet" attire des clients à plus haute valeur, avec des projets plus ambitieux et des relations plus durables</li>
+            <li>Une présence digitale qui reflète enfin le niveau réel de l'entreprise</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="benefits-mini-section">
+      <h3 class="benefits-mini-title">L'Assistant de Conception Architecturale Virtuel</h3>
+      <div class="benefits-grid">
+        <div class="benefit-block">
+          <h3>Efficacité opérationnelle</h3>
+          <ul class="benefit-list">
+            <li>DAL reçoit des demandes déjà qualifiées — type d'espace, surface, ambiance, budget — sans aller-retour préalable</li>
+            <li>Le cycle entre le premier contact et la proposition commerciale est considérablement raccourci</li>
+            <li>L'assistant travaille 24h/24 — chaque visiteur est accueilli et guidé, même en dehors des heures d'ouverture</li>
+          </ul>
+        </div>
+        <div class="benefit-block">
+          <h3>Taux de conversion</h3>
+          <ul class="benefit-list">
+            <li>Le visiteur reçoit une valeur immédiate durant la conversation — conseils préliminaires, orientations techniques, sélection de gammes adaptées</li>
+            <li>Le Rapport de Concept Lumineux crée un lien de confiance avec DAL avant même le premier appel humain</li>
+            <li>Le visiteur laisse ses coordonnées volontairement, parce qu'il a déjà reçu quelque chose en échange — un lead qualifié, pas un formulaire de contact classique</li>
+            <li>La sensation d'avoir déjà commencé son projet avec une agence de design positionne DAL comme un partenaire d'exception</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="benefits-mini-section">
+      <h3 class="benefits-mini-title">Le Moteur de Contenu Automatisé</h3>
+      <div class="benefits-grid">
+        <div class="benefit-block">
+          <h3>Efficacité opérationnelle</h3>
+          <ul class="benefit-list">
+            <li>L'équipe DAL n'a plus besoin de partir d'une page blanche — un brouillon est généré automatiquement à partir de n'importe quel événement déclencheur</li>
+            <li>Le même contenu est diffusé simultanément sur trois canaux (site, newsletter, réseaux sociaux) sans travail supplémentaire</li>
+            <li>La charge de création de contenu est considérablement réduite, libérant du temps pour l'activité principale</li>
+          </ul>
+        </div>
+        <div class="benefit-block">
+          <h3>Taux de conversion</h3>
+          <ul class="benefit-list">
+            <li>Un site régulièrement mis à jour améliore le référencement naturel et la visibilité de DAL sur les moteurs de recherche</li>
+            <li>La newsletter maintient le lien avec la clientèle professionnelle entre deux projets — DAL reste présent dans l'esprit de ses contacts</li>
+            <li>Un positionnement progressif de DAL comme référent et expert dans son domaine, sans que cela représente une charge supplémentaire pour l'équipe</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION 6 : BUDGET & DÉLAIS -->
+<section id="budget-delais">
+  <div class="section-label">06 — Budget et délais de réalisation</div>
+
+  <h2 class="h2-single-line">Budget et <em>délais</em> de réalisation</h2>
 </section>
 
 
