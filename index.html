@@ -52,25 +52,11 @@
     z-index: 100;
     padding: 1.5rem 3rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     border-bottom: 1px solid var(--border);
     background: rgba(10,10,10,0.85);
     backdrop-filter: blur(20px);
-  }
-
-  .nav-brand {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .nav-brand img {
-    height: 3.5rem;
-    width: auto;
-    display: block;
-    object-fit: contain;
   }
 
   .nav-prepared {
@@ -138,22 +124,62 @@
     box-sizing: border-box;
   }
 
-  .hero-intro h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.75rem, 7.5vw, 6rem);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+  .hero-heading-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.5rem 0.65rem;
     margin-bottom: 1.5rem;
-    max-width: none;
-    width: 100%;
+    flex-wrap: wrap;
     opacity: 0;
     animation: fadeUp 0.8s ease forwards 0.5s;
   }
 
-  .hero-intro h1 em {
+  .hero-title-split {
+    flex: 1 1 auto;
+    min-width: min(100%, 12rem);
+    max-width: min(100%, 52rem);
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.75rem, 7.5vw, 6rem);
+    font-weight: 300;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .hero-title-line {
+    display: block;
+  }
+
+  .hero-title-split em {
     font-style: italic;
     color: var(--or-light);
+  }
+
+  .hero-heading-video {
+    flex-shrink: 0;
+    width: min(100%, 18rem);
+    max-width: min(40vw, 20rem);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+    line-height: 0;
+    align-self: center;
+    background: rgba(0, 0, 0, 0.2);
+    margin-left: auto;
+    transform: translateX(-8.5rem);
+  }
+
+  .hero-heading-video video {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
   .hero-intro .hero-sub {
@@ -1771,7 +1797,6 @@
   /* RESPONSIVE */
   @media (max-width: 768px) {
     nav { padding: 1.2rem 1.5rem; }
-    .nav-brand img { height: 2.85rem; }
     .hero { padding: 5.75rem 1.5rem 0.3rem; }
     .hero-intro { padding-left: 1.5rem; padding-right: 1.5rem; }
     section { padding: 2.5rem 1.5rem; }
@@ -1782,6 +1807,20 @@
     .benefits-grid { grid-template-columns: 1fr; }
     .phrase-block { padding: 2.5rem; }
     .footer-cta { padding: 2.5rem 1.5rem; }
+    .hero-heading-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .hero-heading-video {
+      max-width: 100%;
+      width: min(100%, 16rem);
+      align-self: center;
+      margin-left: 0;
+      transform: none;
+    }
+    .hero-title-split {
+      max-width: 100%;
+    }
   }
 
   @media (max-width: 380px) {
@@ -1796,9 +1835,6 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-brand" aria-label="DAL Éclairage Hitech — accueil">
-    <img src="dal_logo.png" width="312" height="302" alt="DAL Éclairage Hitech">
-  </a>
   <div class="nav-prepared">Proposition</div>
 </nav>
 
@@ -1810,7 +1846,15 @@
   <div class="hero-tag">Proposition de collaboration</div>
 
   <div class="hero-intro">
-    <h1>Lumière sur votre <em>présence digitale</em></h1>
+    <div class="hero-heading-row">
+      <h1 class="hero-title-split">
+        <span class="hero-title-line">Lumière sur votre</span>
+        <span class="hero-title-line">présence <em>digitale</em></span>
+      </h1>
+      <div class="hero-heading-video">
+        <video src="video logo.mp4" autoplay muted loop playsinline aria-label="Logo DAL Éclairage Hitech"></video>
+      </div>
+    </div>
     <p class="hero-sub">
       Une refonte complète de votre présence digitale : site web, SEO, expérience utilisateur et intelligence artificielle — au service de votre croissance sur le marché.
     </p>
